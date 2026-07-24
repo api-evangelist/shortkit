@@ -1,0 +1,435 @@
+openapi: 3.1.0
+info:
+  title: ShortKit Ad Configuration Content API
+  version: v1
+  description: The ShortKit API lets you manage content, uploads, live streams, surveys, analytics, and ad configuration for your short-form vertical video feeds. It is organized around REST, uses standard HTTP methods, returns JSON wrapped in a standard envelope, and uses conventional HTTP status codes. All requests must be made over HTTPS.
+  contact:
+    name: ShortKit
+    url: https://www.shortkit.dev
+  x-logo:
+    url: https://www.shortkit.dev/icon.svg
+servers:
+- url: https://api.shortkit.dev/v1
+  description: Production (base URL; environment is selected by the API key prefix — live vs test)
+security:
+- SecretKey: []
+tags:
+- name: Content
+  description: Videos, image carousels, and video carousels in your feed.
+paths:
+  /content:
+    get:
+      operationId: listContent
+      summary: List Content
+      tags:
+      - Content
+      security:
+      - SecretKey: []
+      - PublishableKey: []
+      parameters:
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          default: 20
+      - name: cursor
+        in: query
+        schema:
+          type: string
+        description: Opaque cursor from meta.nextCursor.
+      - name: section
+        in: query
+        schema:
+          type: string
+      - name: contentType
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/ContentList'
+        '401':
+          $ref: '#/components/responses/Error'
+  /content/upload:
+    post:
+      operationId: uploadContent
+      summary: Upload Content
+      description: Send metadata and receive signed upload URLs; the client uploads media directly to cloud storage.
+      tags:
+      - Content
+      security:
+      - SecretKey: []
+      - PublishableKey: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UploadRequest'
+      responses:
+        '200':
+          $ref: '#/components/responses/ContentEnvelope'
+        '400':
+          $ref: '#/components/responses/Error'
+  /content/import:
+    post:
+      operationId: importContent
+      summary: Import Content
+      description: Provide a source URL; ShortKit fetches and processes the media for you.
+      tags:
+      - Content
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - contentType
+              - sourceUrl
+              properties:
+                contentType:
+                  type: string
+                  enum:
+                  - video
+                  - carousel
+                  - video_carousel
+                sourceUrl:
+                  type: string
+                  format: uri
+                title:
+                  type: string
+                  maxLength: 200
+                description:
+                  type: string
+                  maxLength: 2000
+                tags:
+                  type: array
+                  items:
+                    type: string
+                section:
+                  type: string
+                  maxLength: 200
+                author:
+                  type: string
+                  maxLength: 200
+                callbackUrl:
+                  type: string
+                  format: uri
+      responses:
+        '200':
+          $ref: '#/components/responses/ContentEnvelope'
+        '400':
+          $ref: '#/components/responses/Error'
+  /content/count:
+    get:
+      operationId: getContentCount
+      summary: Get Content Count
+      tags:
+      - Content
+      responses:
+        '200':
+          description: Count of content items.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      count:
+                        type: integer
+                  meta:
+                    $ref: '#/components/schemas/Meta'
+  /content/search:
+    get:
+      operationId: searchContent
+      summary: Search Content
+      tags:
+      - Content
+      parameters:
+      - name: q
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          default: 20
+      - name: cursor
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/ContentList'
+  /content/{id}:
+    parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+    get:
+      operationId: getContent
+      summary: Get Content
+      tags:
+      - Content
+      security:
+      - SecretKey: []
+      - PublishableKey: []
+      responses:
+        '200':
+          $ref: '#/components/responses/ContentEnvelope'
+        '404':
+          $ref: '#/components/responses/Error'
+    patch:
+      operationId: updateContent
+      summary: Update Content
+      tags:
+      - Content
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          $ref: '#/components/responses/ContentEnvelope'
+        '404':
+          $ref: '#/components/responses/Error'
+    delete:
+      operationId: deleteContent
+      summary: Delete Content
+      tags:
+      - Content
+      responses:
+        '200':
+          description: Deleted.
+        '404':
+          $ref: '#/components/responses/Error'
+components:
+  responses:
+    ContentEnvelope:
+      description: A single content item.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/components/schemas/Content'
+              meta:
+                $ref: '#/components/schemas/Meta'
+    Error:
+      description: Error response (standard envelope with errors[]).
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorEnvelope'
+    ContentList:
+      description: A page of content items.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Content'
+              meta:
+                $ref: '#/components/schemas/Meta'
+  schemas:
+    Content:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        contentType:
+          type: string
+          enum:
+          - video
+          - carousel
+          - video_carousel
+          - live_stream
+        title:
+          type: string
+        description:
+          type: string
+        uploadStatus:
+          type: string
+          enum:
+          - pending
+          - processing
+          - ready
+        publishStatus:
+          type: string
+          enum:
+          - draft
+          - published
+        duration:
+          type: number
+        streamingUrl:
+          type: string
+        thumbnailUrl:
+          type: string
+        protected:
+          type: boolean
+        section:
+          type: string
+        author:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        customMetadata:
+          type: object
+          additionalProperties: true
+        captionTracks:
+          type: array
+          items:
+            type: object
+        images:
+          type: array
+          items:
+            type: object
+        liveStreamId:
+          type: string
+          nullable: true
+        publishAt:
+          type: string
+          nullable: true
+        expiresAt:
+          type: string
+          nullable: true
+        width:
+          type: integer
+        height:
+          type: integer
+        aspectRatio:
+          type: string
+          example: '9:16'
+        maxFrameRate:
+          type: integer
+        videoQuality:
+          type: string
+        resolutionTier:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    Meta:
+      type: object
+      description: Envelope metadata. Always includes request_id; nextCursor present when more results exist.
+      properties:
+        request_id:
+          type: string
+          example: req_abc123def456
+        nextCursor:
+          type: string
+          nullable: true
+    ErrorEnvelope:
+      type: object
+      properties:
+        data:
+          type: 'null'
+        meta:
+          $ref: '#/components/schemas/Meta'
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+                enum:
+                - invalid_request
+                - invalid_api_key
+                - forbidden
+                - not_found
+                - conflict
+                - rate_limited
+                - internal_error
+              message:
+                type: string
+    UploadRequest:
+      type: object
+      required:
+      - contentType
+      - title
+      properties:
+        contentType:
+          type: string
+          enum:
+          - video
+          - carousel
+          - video_carousel
+        title:
+          type: string
+          maxLength: 200
+        description:
+          type: string
+          maxLength: 2000
+        tags:
+          type: array
+          items:
+            type: string
+        section:
+          type: string
+          maxLength: 200
+        author:
+          type: string
+          maxLength: 200
+        customMetadata:
+          type: object
+          additionalProperties: true
+        protected:
+          type: boolean
+        origin:
+          type: string
+          enum:
+          - ios_upload
+          - other
+          default: other
+        publishAt:
+          type: string
+          format: date-time
+        expiresAt:
+          type: string
+          format: date-time
+        autoScrollInterval:
+          type: number
+        callbackUrl:
+          type: string
+          format: uri
+          description: Webhook URL POSTed at each processing stage.
+        images:
+          type: array
+          items:
+            type: object
+            properties:
+              position:
+                type: integer
+              altText:
+                type: string
+  securitySchemes:
+    PublishableKey:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      description: Publishable key (prefix pk_{env}_). Read-only access to published content plus event ingestion and survey-response submission. Safe for client-side/mobile use.
+    SecretKey:
+      type: http
+      scheme: bearer
+      description: Secret key (prefix sk_{env}_) sent as a Bearer token. Full management access. Server-side only; bcrypt-hashed at rest and shown once at creation.

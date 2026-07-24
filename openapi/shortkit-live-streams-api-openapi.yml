@@ -1,0 +1,275 @@
+openapi: 3.1.0
+info:
+  title: ShortKit Ad Configuration Live Streams API
+  version: v1
+  description: The ShortKit API lets you manage content, uploads, live streams, surveys, analytics, and ad configuration for your short-form vertical video feeds. It is organized around REST, uses standard HTTP methods, returns JSON wrapped in a standard envelope, and uses conventional HTTP status codes. All requests must be made over HTTPS.
+  contact:
+    name: ShortKit
+    url: https://www.shortkit.dev
+  x-logo:
+    url: https://www.shortkit.dev/icon.svg
+servers:
+- url: https://api.shortkit.dev/v1
+  description: Production (base URL; environment is selected by the API key prefix — live vs test)
+security:
+- SecretKey: []
+tags:
+- name: Live Streams
+  description: Real-time broadcasts that appear in the feed alongside on-demand content.
+paths:
+  /live-streams:
+    get:
+      operationId: listLiveStreams
+      summary: List Live Streams
+      tags:
+      - Live Streams
+      responses:
+        '200':
+          description: List of live streams.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/LiveStream'
+                  meta:
+                    $ref: '#/components/schemas/Meta'
+    post:
+      operationId: createLiveStream
+      summary: Create Live Stream
+      description: Returns a ready-to-use RTMPS broadcast URL and stream key (shown once).
+      tags:
+      - Live Streams
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  maxLength: 200
+                protocol:
+                  type: string
+                  enum:
+                  - hls
+                  - webrtc
+                latencyMode:
+                  type: string
+                  enum:
+                  - low
+                  - reduced
+                  - standard
+                reconnectWindow:
+                  type: integer
+                  minimum: 0
+                  maximum: 1800
+                  default: 60
+      responses:
+        '200':
+          description: Created live stream (includes rtmpUrl + streamKey).
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/LiveStream'
+                  meta:
+                    $ref: '#/components/schemas/Meta'
+  /live-streams/status:
+    get:
+      operationId: getLiveStreamStatus
+      summary: Get Live Stream Status
+      tags:
+      - Live Streams
+      responses:
+        '200':
+          description: Aggregate live stream status.
+  /live-streams/{id}:
+    parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+    get:
+      operationId: getLiveStream
+      summary: Get Live Stream
+      tags:
+      - Live Streams
+      responses:
+        '200':
+          description: The live stream.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/LiveStream'
+                  meta:
+                    $ref: '#/components/schemas/Meta'
+        '404':
+          $ref: '#/components/responses/Error'
+    delete:
+      operationId: deleteLiveStream
+      summary: Delete Live Stream
+      tags:
+      - Live Streams
+      responses:
+        '200':
+          description: Deleted.
+  /live-streams/{id}/end:
+    post:
+      operationId: endLiveStream
+      summary: End Live Stream
+      tags:
+      - Live Streams
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: Stream ended.
+  /live-streams/{id}/clips:
+    post:
+      operationId: createLiveStreamClips
+      summary: Create Clips
+      tags:
+      - Live Streams
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                clips:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      startSeconds:
+                        type: number
+                      endSeconds:
+                        type: number
+      responses:
+        '200':
+          description: Clips created.
+components:
+  responses:
+    Error:
+      description: Error response (standard envelope with errors[]).
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorEnvelope'
+  schemas:
+    Meta:
+      type: object
+      description: Envelope metadata. Always includes request_id; nextCursor present when more results exist.
+      properties:
+        request_id:
+          type: string
+          example: req_abc123def456
+        nextCursor:
+          type: string
+          nullable: true
+    LiveStream:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        playbackId:
+          type: string
+        status:
+          type: string
+          enum:
+          - idle
+          - active
+          - ended
+        protocol:
+          type: string
+          enum:
+          - hls
+          - webrtc
+        title:
+          type: string
+          nullable: true
+        latencyMode:
+          type: string
+          enum:
+          - low
+          - reduced
+          - standard
+          nullable: true
+        reconnectWindow:
+          type: integer
+          nullable: true
+        rtmpUrl:
+          type: string
+          nullable: true
+          description: Sensitive — broadcast URL with embedded credentials. Returned only on create.
+        streamKey:
+          type: string
+          nullable: true
+          description: Sensitive. Returned only on create.
+        startedAt:
+          type: string
+          nullable: true
+        endedAt:
+          type: string
+          nullable: true
+        createdAt:
+          type: string
+          format: date-time
+    ErrorEnvelope:
+      type: object
+      properties:
+        data:
+          type: 'null'
+        meta:
+          $ref: '#/components/schemas/Meta'
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+                enum:
+                - invalid_request
+                - invalid_api_key
+                - forbidden
+                - not_found
+                - conflict
+                - rate_limited
+                - internal_error
+              message:
+                type: string
+  securitySchemes:
+    PublishableKey:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      description: Publishable key (prefix pk_{env}_). Read-only access to published content plus event ingestion and survey-response submission. Safe for client-side/mobile use.
+    SecretKey:
+      type: http
+      scheme: bearer
+      description: Secret key (prefix sk_{env}_) sent as a Bearer token. Full management access. Server-side only; bcrypt-hashed at rest and shown once at creation.

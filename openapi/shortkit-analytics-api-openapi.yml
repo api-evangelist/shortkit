@@ -1,0 +1,161 @@
+openapi: 3.1.0
+info:
+  title: ShortKit Ad Configuration Analytics API
+  version: v1
+  description: The ShortKit API lets you manage content, uploads, live streams, surveys, analytics, and ad configuration for your short-form vertical video feeds. It is organized around REST, uses standard HTTP methods, returns JSON wrapped in a standard envelope, and uses conventional HTTP status codes. All requests must be made over HTTPS.
+  contact:
+    name: ShortKit
+    url: https://www.shortkit.dev
+  x-logo:
+    url: https://www.shortkit.dev/icon.svg
+servers:
+- url: https://api.shortkit.dev/v1
+  description: Production (base URL; environment is selected by the API key prefix — live vs test)
+security:
+- SecretKey: []
+tags:
+- name: Analytics
+  description: Events and metrics for user interaction with your content.
+paths:
+  /events:
+    post:
+      operationId: ingestEvents
+      summary: Ingest Events
+      description: Client-side event ingestion. Called automatically by the SDK using a publishable key.
+      tags:
+      - Analytics
+      security:
+      - PublishableKey: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '202':
+          description: Accepted.
+  /events/explore:
+    get:
+      operationId: listEvents
+      summary: List Events
+      tags:
+      - Analytics
+      parameters:
+      - name: event_type
+        in: query
+        schema:
+          type: string
+      - name: content_id
+        in: query
+        schema:
+          type: string
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          default: 20
+      - name: cursor
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: List of events.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Event'
+                  meta:
+                    $ref: '#/components/schemas/Meta'
+  /metrics/{metric}:
+    get:
+      operationId: getMetric
+      summary: Get Metric
+      tags:
+      - Analytics
+      parameters:
+      - name: metric
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Metric value.
+  /metrics/{metric}/timeseries:
+    get:
+      operationId: getMetricTimeseries
+      summary: Get Metric Timeseries
+      tags:
+      - Analytics
+      parameters:
+      - name: metric
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: interval
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Time series for the metric.
+components:
+  schemas:
+    Meta:
+      type: object
+      description: Envelope metadata. Always includes request_id; nextCursor present when more results exist.
+      properties:
+        request_id:
+          type: string
+          example: req_abc123def456
+        nextCursor:
+          type: string
+          nullable: true
+    Event:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        event_type:
+          type: string
+          example: playStart
+        content_id:
+          type: string
+          nullable: true
+        user_id:
+          type: string
+          example: user_abc123
+        session_id:
+          type: string
+          nullable: true
+        view_session_id:
+          type: string
+          nullable: true
+        timestamp:
+          type: string
+          format: date-time
+        received_at:
+          type: string
+          format: date-time
+        event_data:
+          type: object
+          additionalProperties: true
+  securitySchemes:
+    PublishableKey:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      description: Publishable key (prefix pk_{env}_). Read-only access to published content plus event ingestion and survey-response submission. Safe for client-side/mobile use.
+    SecretKey:
+      type: http
+      scheme: bearer
+      description: Secret key (prefix sk_{env}_) sent as a Bearer token. Full management access. Server-side only; bcrypt-hashed at rest and shown once at creation.

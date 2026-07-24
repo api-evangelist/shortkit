@@ -1,0 +1,275 @@
+openapi: 3.1.0
+info:
+  title: ShortKit Ad Configuration Surveys API
+  version: v1
+  description: The ShortKit API lets you manage content, uploads, live streams, surveys, analytics, and ad configuration for your short-form vertical video feeds. It is organized around REST, uses standard HTTP methods, returns JSON wrapped in a standard envelope, and uses conventional HTTP status codes. All requests must be made over HTTPS.
+  contact:
+    name: ShortKit
+    url: https://www.shortkit.dev
+  x-logo:
+    url: https://www.shortkit.dev/icon.svg
+servers:
+- url: https://api.shortkit.dev/v1
+  description: Production (base URL; environment is selected by the API key prefix — live vs test)
+security:
+- SecretKey: []
+tags:
+- name: Surveys
+  description: Short polls injected between content items in the feed.
+paths:
+  /surveys:
+    get:
+      operationId: listSurveys
+      summary: List Surveys
+      tags:
+      - Surveys
+      responses:
+        '200':
+          description: List of surveys.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Survey'
+                  meta:
+                    $ref: '#/components/schemas/Meta'
+    post:
+      operationId: createSurvey
+      summary: Create Survey
+      tags:
+      - Surveys
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - question
+              - options
+              properties:
+                title:
+                  type: string
+                question:
+                  type: string
+                priority:
+                  type: integer
+                autoAdvanceDelay:
+                  type: number
+                options:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      text:
+                        type: string
+                      position:
+                        type: integer
+      responses:
+        '200':
+          $ref: '#/components/responses/SurveyEnvelope'
+  /surveys/{id}:
+    parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+    get:
+      operationId: getSurvey
+      summary: Get Survey
+      tags:
+      - Surveys
+      responses:
+        '200':
+          $ref: '#/components/responses/SurveyEnvelope'
+        '404':
+          $ref: '#/components/responses/Error'
+    put:
+      operationId: updateSurvey
+      summary: Update Survey
+      tags:
+      - Surveys
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          $ref: '#/components/responses/SurveyEnvelope'
+    delete:
+      operationId: deleteSurvey
+      summary: Delete Survey
+      tags:
+      - Surveys
+      responses:
+        '200':
+          description: Deleted.
+  /surveys/{id}/responses:
+    post:
+      operationId: submitSurveyResponse
+      summary: Submit Response
+      description: Submit an end-user response to a survey. Accepts a publishable key.
+      tags:
+      - Surveys
+      security:
+      - PublishableKey: []
+      - SecretKey: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - optionId
+              properties:
+                optionId:
+                  type: string
+                  format: uuid
+      responses:
+        '200':
+          description: Response recorded.
+        '409':
+          $ref: '#/components/responses/Error'
+components:
+  responses:
+    Error:
+      description: Error response (standard envelope with errors[]).
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorEnvelope'
+    SurveyEnvelope:
+      description: A single survey.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/components/schemas/Survey'
+              meta:
+                $ref: '#/components/schemas/Meta'
+  schemas:
+    Meta:
+      type: object
+      description: Envelope metadata. Always includes request_id; nextCursor present when more results exist.
+      properties:
+        request_id:
+          type: string
+          example: req_abc123def456
+        nextCursor:
+          type: string
+          nullable: true
+    ErrorEnvelope:
+      type: object
+      properties:
+        data:
+          type: 'null'
+        meta:
+          $ref: '#/components/schemas/Meta'
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+                enum:
+                - invalid_request
+                - invalid_api_key
+                - forbidden
+                - not_found
+                - conflict
+                - rate_limited
+                - internal_error
+              message:
+                type: string
+    Survey:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        title:
+          type: string
+        question:
+          type: string
+        status:
+          type: string
+          enum:
+          - draft
+          - active
+          - paused
+          - archived
+        priority:
+          type: integer
+        autoAdvanceDelay:
+          type: number
+        options:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                format: uuid
+              text:
+                type: string
+              position:
+                type: integer
+              responseCount:
+                type: integer
+              createdAt:
+                type: string
+                format: date-time
+        placementRules:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                format: uuid
+              ruleType:
+                type: string
+                example: min_videos_before
+              ruleValue:
+                type: object
+                additionalProperties: true
+              createdAt:
+                type: string
+                format: date-time
+        totalResponses:
+          type: integer
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+  securitySchemes:
+    PublishableKey:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      description: Publishable key (prefix pk_{env}_). Read-only access to published content plus event ingestion and survey-response submission. Safe for client-side/mobile use.
+    SecretKey:
+      type: http
+      scheme: bearer
+      description: Secret key (prefix sk_{env}_) sent as a Bearer token. Full management access. Server-side only; bcrypt-hashed at rest and shown once at creation.

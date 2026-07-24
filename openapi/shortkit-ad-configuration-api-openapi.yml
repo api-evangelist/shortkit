@@ -1,0 +1,129 @@
+openapi: 3.1.0
+info:
+  title: ShortKit Ad Configuration API
+  version: v1
+  description: The ShortKit API lets you manage content, uploads, live streams, surveys, analytics, and ad configuration for your short-form vertical video feeds. It is organized around REST, uses standard HTTP methods, returns JSON wrapped in a standard envelope, and uses conventional HTTP status codes. All requests must be made over HTTPS.
+  contact:
+    name: ShortKit
+    url: https://www.shortkit.dev
+  x-logo:
+    url: https://www.shortkit.dev/icon.svg
+servers:
+- url: https://api.shortkit.dev/v1
+  description: Production (base URL; environment is selected by the API key prefix — live vs test)
+security:
+- SecretKey: []
+tags:
+- name: Ad Configuration
+  description: How ad slots are interleaved into the feed.
+paths:
+  /ad-config:
+    get:
+      operationId: getAdConfig
+      summary: Get Ad Config
+      tags:
+      - Ad Configuration
+      responses:
+        '200':
+          $ref: '#/components/responses/AdConfigEnvelope'
+    put:
+      operationId: updateAdConfig
+      summary: Update Ad Config
+      tags:
+      - Ad Configuration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdConfig'
+      responses:
+        '200':
+          $ref: '#/components/responses/AdConfigEnvelope'
+components:
+  schemas:
+    AdConfig:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+          default: false
+        frequency:
+          type: integer
+          default: 5
+        firstAdOffset:
+          type: integer
+          default: 3
+        maxPerPage:
+          type: integer
+          default: 3
+        adTagUrl:
+          type: string
+          nullable: true
+        adUnitId:
+          type: string
+          nullable: true
+        skipPolicy:
+          type: string
+          default: skippable_after
+        skipDelaySeconds:
+          type: integer
+          default: 5
+        defaultTargeting:
+          type: object
+          additionalProperties: true
+        nativeEnabled:
+          type: boolean
+          default: false
+        nativeFormatId:
+          type: string
+          nullable: true
+        nativeAdUnitId:
+          type: string
+          nullable: true
+        nativeVideoUrlKey:
+          type: string
+          default: video_url
+        nativeHeadlineKey:
+          type: string
+          default: headline
+        nativeCtaKey:
+          type: string
+          default: cta_text
+        nativeSponsorKey:
+          type: string
+          default: sponsor_name
+        nativeSponsorLogoKey:
+          type: string
+          default: sponsor_logo
+    Meta:
+      type: object
+      description: Envelope metadata. Always includes request_id; nextCursor present when more results exist.
+      properties:
+        request_id:
+          type: string
+          example: req_abc123def456
+        nextCursor:
+          type: string
+          nullable: true
+  responses:
+    AdConfigEnvelope:
+      description: The ad configuration.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/components/schemas/AdConfig'
+              meta:
+                $ref: '#/components/schemas/Meta'
+  securitySchemes:
+    PublishableKey:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      description: Publishable key (prefix pk_{env}_). Read-only access to published content plus event ingestion and survey-response submission. Safe for client-side/mobile use.
+    SecretKey:
+      type: http
+      scheme: bearer
+      description: Secret key (prefix sk_{env}_) sent as a Bearer token. Full management access. Server-side only; bcrypt-hashed at rest and shown once at creation.
