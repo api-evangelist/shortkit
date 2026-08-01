@@ -1,0 +1,34 @@
+generated: '2026-07-21'
+method: searched
+source: >-
+  https://www.shortkit.dev/docs/api/authentication, https://www.shortkit.dev/docs/api/overview,
+  https://www.shortkit.dev/docs/quickstart
+api: ShortKit API
+model: environment-per-key
+environments:
+- name: test
+  key_prefixes:
+    publishable: pk_test_
+    secret: sk_test_
+  isolated: true
+- name: live
+  key_prefixes:
+    publishable: pk_live_
+    secret: sk_live_
+  isolated: true
+isolation_note: >-
+  The environment (live or test) is encoded directly in every key prefix, so a single key always
+  maps to exactly one environment. A live key cannot access test data and vice versa.
+key_formats:
+  publishable: pk_{env}_{random}
+  secret: sk_{env}_{id}_{random}
+demo_content: >-
+  New accounts come provisioned with demo content so the SDK feed renders immediately without any
+  uploads (per the Quickstart).
+test_tooling:
+  test_clocks: not documented
+  fixtures_or_triggers: not documented
+notes: >-
+  ShortKit does not publish concrete sandbox test tokens/cards; the sandbox surface is the isolated
+  `test` environment selected via the pk_test_/sk_test_ key prefixes. No fabricated test values are
+  recorded here.

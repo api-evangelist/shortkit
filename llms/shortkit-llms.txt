@@ -1,0 +1,44 @@
+# ShortKit
+
+> Y Combinator-backed short-form vertical video platform. Drop-in, TikTok-quality video feeds for iOS, Android, Flutter, React Native, Expo and Web, backed by a REST API for content, uploads, live streams, in-feed surveys, analytics and ad configuration. Enterprise-grade video infrastructure: adaptive-bitrate HLS transcoding, global CDN (300+ PoPs), automatic captions with language detection, protected playback, and native ad insertion.
+
+Generated 2026-07-21 by the API Evangelist enrichment pipeline from ShortKit's public documentation (github.com/shortkit/docs). Rendered developer docs at shortkit.dev/docs are partner-gated; the Mintlify source and the iOS SDK are public on GitHub.
+
+## API
+
+- Base URL: https://api.shortkit.dev/v1 (HTTPS only)
+- Auth: two API-key types. Publishable `pk_{env}_` via `X-API-Key` header (read + event ingestion + survey responses, client-safe). Secret `sk_{env}_` via `Authorization: Bearer` (full management, server-side only). Environment (live/test) is encoded in the key prefix and fully isolated.
+- Response envelope: `{ data, meta: { request_id, nextCursor? }, errors? }`
+- Pagination: cursor-based (`limit`, `cursor` -> `meta.nextCursor`); cursors are opaque.
+- Rate limit: 120 requests/minute per secret key (sliding window); 429 `rate_limited` on exceed.
+- Errors: custom envelope (not RFC 9457) — `errors[].code` + `message`. Codes: invalid_request(400), invalid_api_key(401), forbidden(403), not_found(404), conflict(409), rate_limited(429), internal_error(500).
+
+## Resources & key operations
+
+- Content: upload (POST /content/upload), import (POST /content/import), list (GET /content), get (GET /content/{id}), search (GET /content/search), count (GET /content/count), update (PATCH /content/{id}), delete (DELETE /content/{id}).
+- Live Streams: create (POST /live-streams -> returns RTMPS url + stream key once), list, get, status, end (POST /live-streams/{id}/end), clips (POST /live-streams/{id}/clips), delete.
+- Surveys: create (POST /surveys), list, get, update (PUT /surveys/{id}), delete, submit response (POST /surveys/{id}/responses).
+- Analytics: ingest events (POST /events, publishable key, SDK-driven), list events (GET /events/explore), metrics (GET /metrics/{metric}), timeseries (GET /metrics/{metric}/timeseries).
+- Ad Configuration: get (GET /ad-config), update (PUT /ad-config) — VAST/VMAP + Google Ad Manager native ad mapping.
+
+## Webhooks
+
+Provide a `callbackUrl` on upload/import; ShortKit POSTs processing-pipeline events (respond 2xx): `content.imported` (status processing, then ready) and `content.import_failed` (status error). Carousels fire a single `content.imported` when all images validate.
+
+## SDKs
+
+- iOS — Swift Package Manager: https://github.com/shortkit/shortkit-ios (product ShortKitSDK, binary XCFramework, iOS 16+, zero dependencies)
+- Android — Maven: `dev.shortkit:shortkit`
+- Flutter — pub.dev: `shortkit_flutter`
+- React Native / Expo — npm: `@shortkitsdk/react-native`
+- Web — npm / CDN
+
+## Links
+
+- Website: https://www.shortkit.dev
+- Docs (partner-gated): https://www.shortkit.dev/docs
+- API reference source: https://github.com/shortkit/docs
+- Developer portal: https://portal.shortkit.dev
+- Pricing: https://www.shortkit.dev/pricing
+- Blog: https://www.shortkit.dev/blog
+- GitHub: https://github.com/shortkit

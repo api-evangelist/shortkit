@@ -1,0 +1,33 @@
+generated: '2026-07-21'
+method: probed
+source: HTTP probes of ShortKit hosts on 2026-07-21
+summary: No .well-known, llms.txt, or machine-readable spec endpoints are served. None found is a valid result.
+probes:
+- host: www.shortkit.dev
+  path: /.well-known/security.txt
+  status: 404
+- host: www.shortkit.dev
+  path: /.well-known/openid-configuration
+  status: 404
+- host: www.shortkit.dev
+  path: /.well-known/oauth-authorization-server
+  status: 404
+- host: www.shortkit.dev
+  path: /.well-known/api-catalog
+  status: 404
+- host: www.shortkit.dev
+  path: /.well-known/ai-plugin.json
+  status: 404
+- host: www.shortkit.dev
+  path: /llms.txt
+  status: 404
+- host: www.shortkit.dev
+  path: /openapi.json
+  status: 404
+- host: portal.shortkit.dev
+  path: /.well-known/security.txt
+  status: 404
+- host: portal.shortkit.dev
+  path: /.well-known/openid-configuration
+  status: 404
+files: []

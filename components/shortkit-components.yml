@@ -1,0 +1,54 @@
+generated: '2026-07-21'
+method: searched
+source: >-
+  https://www.shortkit.dev/docs/sdk/installation, https://www.shortkit.dev (SDK integration section),
+  ShortKit docs sdk/* (feed, player-and-widget, carousel, overlays, configuration)
+api: ShortKit API
+summary: >-
+  Client-side, drop-in UI components that render the short-form video feed and player inside a host
+  app. Distinct from raw SDK/API clients — these are prebuilt, embeddable video surfaces.
+families:
+- family: Feed
+  components:
+  - name: ShortKitFeed / ShortKitFeedView
+    platforms: [iOS (SwiftUI), Android, React Native, Flutter, Web]
+    purpose: Full-screen vertical, fast-swiping short-form video feed.
+  - name: ShortKitProvider
+    platforms: [React Native, Flutter]
+    purpose: Wraps the feed and supplies API key + FeedConfig configuration.
+- family: Player
+  components:
+  - name: Single Player / player widget
+    platforms: [iOS, Android, React Native, Flutter, Web]
+    purpose: Standalone short-form video player for a single content item.
+  - name: useShortKitPlayer()
+    platforms: [React Native]
+    purpose: Hook exposing player state and controls (play, pause, seek, captions).
+- family: Carousel
+  components:
+  - name: Vertical Feed Carousel
+    platforms: [iOS, Android, React Native, Flutter, Web]
+    purpose: Carousel presentation mode over the feed.
+- family: Overlays
+  components:
+  - name: Overlays (template + custom)
+    platforms: [iOS, Android, React Native, Flutter, Web]
+    purpose: Configurable UI overlays (controls, captions, custom templates) on top of the player.
+- family: In-feed Surveys
+  components:
+  - name: Survey card
+    platforms: [iOS, Android, React Native, Flutter, Web]
+    purpose: SDK-rendered poll injected between content items; response collection handled automatically.
+configuration:
+  object: FeedConfig / ControlsConfig
+  examples:
+  - feedHeight: .fullscreen
+  - muteOnStart, captions.defaultOn, autoHideControls
+  - overlay: .template(.standard)
+  remote_config: Remote SDK configuration management (change feed/player config without an app release).
+loaders:
+  ios: Swift Package Manager (ShortKitSDK)
+  android: Maven (dev.shortkit:shortkit)
+  react_native: npm (@shortkitsdk/react-native)
+  flutter: pub.dev (shortkit_flutter)
+  web: npm / CDN

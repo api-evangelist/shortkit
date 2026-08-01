@@ -1,0 +1,46 @@
+# generated: 2026-07-21
+# method: generated
+# source: enrichment of openapi/shortkit-openapi.yaml with API Evangelist metadata
+overlay: 1.0.0
+info:
+  title: ShortKit API Evangelist Enrichment Overlay
+  version: 1.0.0
+extends: ../openapi/shortkit-openapi.yaml
+actions:
+- target: $.info
+  description: Tag the specification with API Evangelist provenance.
+  update:
+    x-apievangelist:
+      provider: shortkit
+      category: [Video, Short-Form Video, Live Streaming, Advertising]
+      backed-by: y-combinator
+      docs: partner-gated (Mintlify) — source public at github.com/shortkit/docs
+      spec-origin: hand-generated from published docs; no vendor-published OpenAPI
+- target: $.info
+  description: Record the dual API-key authentication model as a machine-readable summary.
+  update:
+    x-authentication:
+      style: api-key
+      publishable:
+        prefix: pk_{env}_
+        header: X-API-Key
+        access: read+ingest
+      secret:
+        prefix: sk_{env}_
+        header: Authorization Bearer
+        access: full-management
+      environments: [live, test]
+- target: $.components.schemas.Meta
+  description: Note the standard response envelope and request-id tracing convention.
+  update:
+    x-envelope: '{ data, meta: { request_id, nextCursor? }, errors? }'
+    x-request-id-field: meta.request_id
+- target: $.paths['/content'].get
+  description: Flag cursor-based pagination on list endpoints.
+  update:
+    x-pagination: {style: cursor, params: [limit, cursor], next: meta.nextCursor}
+- target: $.paths['/content/upload'].post
+  description: Cross-link the processing-pipeline webhook catalog.
+  update:
+    x-webhooks: asyncapi/shortkit-webhooks.yml
+    x-rate-limit: 120/min (secret key, sliding window)

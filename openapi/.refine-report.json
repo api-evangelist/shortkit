@@ -1,0 +1,22 @@
+{
+  "provider": "shortkit",
+  "sources": [
+    "shortkit-ad-configuration-api-openapi.yml",
+    "shortkit-analytics-api-openapi.yml",
+    "shortkit-content-api-openapi.yml",
+    "shortkit-live-streams-api-openapi.yml",
+    "shortkit-surveys-api-openapi.yml"
+  ],
+  "outputs": [
+    "shortkit-ad-configuration-api-openapi.yml",
+    "shortkit-analytics-api-openapi.yml",
+    "shortkit-content-api-openapi.yml",
+    "shortkit-live-streams-api-openapi.yml",
+    "shortkit-surveys-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

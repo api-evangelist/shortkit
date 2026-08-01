@@ -1,0 +1,44 @@
+generated: '2026-07-21'
+method: derived
+source: >-
+  Derived from openapi/shortkit-openapi.yaml and the ShortKit API reference
+  (https://www.shortkit.dev/docs/api/*). Each entry asserts conformance to a cross-cutting
+  standard with evidence from the documented surface.
+api: ShortKit API
+standards:
+- id: rest
+  conforms: true
+  evidence: Organized around REST — resource-oriented paths, standard HTTP methods, JSON bodies, conventional status codes.
+- id: rfc9457
+  conforms: false
+  evidence: Errors use a custom envelope (data/meta/errors[]) with code+message, not application/problem+json.
+- id: pagination
+  conforms: true
+  evidence: Cursor-based pagination on list endpoints via limit + cursor params and meta.nextCursor.
+- id: idempotency
+  conforms: false
+  evidence: No Idempotency-Key header documented; only a 409 conflict for duplicate state.
+- id: oauth2
+  conforms: false
+  evidence: Authentication is API-key based (publishable X-API-Key, secret Bearer). No OAuth 2.0 flows.
+- id: oidc
+  conforms: false
+  evidence: No OpenID Connect discovery or ID tokens.
+- id: 'json:api'
+  conforms: false
+  evidence: Custom envelope, not the JSON:API media type or document structure.
+- id: hls
+  conforms: true
+  evidence: Adaptive-bitrate HLS transcoding ladder; live streams support HLS (and WebRTC) ingest/delivery protocols.
+- id: rtmp
+  conforms: true
+  evidence: Live stream ingest via ready-to-use RTMPS broadcast URLs.
+- id: vast_vmap
+  conforms: true
+  evidence: Ad configuration passes VAST/VMAP ad tag URLs to the client ad player; native ad format mapping (Google Ad Manager / IMA).
+- id: bcp47
+  conforms: true
+  evidence: Auto-detected content language stored as customMetadata.language using BCP 47 codes.
+- id: rate_limit_standard_headers
+  conforms: unknown
+  evidence: A 120/min sliding-window limit and 429 are documented, but specific RateLimit response headers are not published.

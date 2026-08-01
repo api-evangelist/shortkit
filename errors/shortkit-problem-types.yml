@@ -1,0 +1,45 @@
+generated: '2026-07-21'
+method: searched
+source: 'https://www.shortkit.dev/docs/api/errors (GitHub shortkit/docs api/errors.mdx)'
+api: ShortKit API
+format: custom-envelope
+format_note: >-
+  Not RFC 9457 (application/problem+json). Errors are returned inside the standard response
+  envelope as { data: null, meta: { request_id }, errors: [ { code, message } ] }. Handle by the
+  machine-readable `code`, not by HTTP status.
+envelope_field: errors
+error_object_fields:
+- code
+- message
+rate_limiting:
+  limit: 120 requests/minute (secret key), sliding window
+  status: 429
+problem_types:
+- code: invalid_request
+  status: 400
+  title: Invalid request
+  remediation: Fix malformed/missing required fields, invalid parameter values, or unsupported formats and retry.
+- code: invalid_api_key
+  status: 401
+  title: Invalid API key
+  remediation: Provide a valid, non-revoked API key with the correct header for its key type.
+- code: forbidden
+  status: 403
+  title: Forbidden
+  remediation: The key lacks permission for this endpoint — typically a publishable key used on a secret-key endpoint. Use a secret key.
+- code: not_found
+  status: 404
+  title: Not found
+  remediation: The resource does not exist or does not belong to your organization. Verify the id.
+- code: conflict
+  status: 409
+  title: Conflict
+  remediation: The request conflicts with existing state (e.g. duplicate survey response). Reconcile and retry.
+- code: rate_limited
+  status: 429
+  title: Rate limited
+  remediation: Back off and retry; secret-key requests are capped at 120/min (sliding window).
+- code: internal_error
+  status: 500
+  title: Internal error
+  remediation: Retry; if it persists, contact support with the meta.request_id.

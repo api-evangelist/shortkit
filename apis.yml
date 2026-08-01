@@ -1,22 +1,187 @@
 aid: shortkit
-name: Shortkit
-description: Shortkit is a company surfaced as a portfolio company of y-combinator and added to the API
-  Evangelist network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+name: ShortKit
+description: >-
+  ShortKit is a Y Combinator-backed short-form vertical video platform that gives product teams a
+  drop-in, TikTok-quality video experience without the infrastructure complexity. It ships native
+  SDKs for iOS, Android, Flutter, React Native, Expo and Web alongside a REST API for managing
+  content, direct uploads, live streams, in-feed surveys, analytics events and ad configuration.
+  The platform handles adaptive-bitrate HLS transcoding, global CDN delivery across 300+ points of
+  presence, automatic caption generation with language detection, protected/signed playback, and
+  native ad insertion (Google Ad Manager / VAST / IMA). Developer docs are partner-gated but the
+  Mintlify API reference and the iOS SDK are published openly on GitHub.
 url: https://raw.githubusercontent.com/api-evangelist/shortkit/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
 - y-combinator
-x-tier: stub
+x-tier: enriched
 x-tier-reason: portfolio-lead
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://www.shortkit.dev/icon.svg
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-21'
 tags:
 - Company
-apis: []
+- Video
+- Short-Form Video
+- Video SDK
+- Streaming
+- Live Streaming
+- Content Delivery
+- Analytics
+- Advertising
+- Y Combinator
+apis:
+- aid: shortkit:shortkit-ad-configuration-api
+  name: ShortKit Ad Configuration API
+  description: How ad slots are interleaved into the feed.
+  humanURL: https://www.shortkit.dev/docs
+  baseURL: https://api.shortkit.dev/v1
+  tags:
+  - Ad Configuration
+  properties:
+  - type: OpenAPI
+    url: openapi/shortkit-ad-configuration-api-openapi.yml
+  - type: Documentation
+    url: https://www.shortkit.dev/docs
+  - type: APIReference
+    url: https://www.shortkit.dev/docs/api/overview
+  - type: Authentication
+    url: authentication/shortkit-authentication.yml
+- aid: shortkit:shortkit-analytics-api
+  name: ShortKit Analytics API
+  description: Events and metrics for user interaction with your content.
+  humanURL: https://www.shortkit.dev/docs
+  baseURL: https://api.shortkit.dev/v1
+  tags:
+  - Analytics
+  properties:
+  - type: OpenAPI
+    url: openapi/shortkit-analytics-api-openapi.yml
+  - type: Documentation
+    url: https://www.shortkit.dev/docs
+  - type: APIReference
+    url: https://www.shortkit.dev/docs/api/overview
+  - type: Authentication
+    url: authentication/shortkit-authentication.yml
+- aid: shortkit:shortkit-content-api
+  name: ShortKit Content API
+  description: Videos, image carousels, and video carousels in your feed.
+  humanURL: https://www.shortkit.dev/docs
+  baseURL: https://api.shortkit.dev/v1
+  tags:
+  - Content
+  properties:
+  - type: OpenAPI
+    url: openapi/shortkit-content-api-openapi.yml
+  - type: Documentation
+    url: https://www.shortkit.dev/docs
+  - type: APIReference
+    url: https://www.shortkit.dev/docs/api/overview
+  - type: Authentication
+    url: authentication/shortkit-authentication.yml
+- aid: shortkit:shortkit-live-streams-api
+  name: ShortKit Live Streams API
+  description: Real-time broadcasts that appear in the feed alongside on-demand content.
+  humanURL: https://www.shortkit.dev/docs
+  baseURL: https://api.shortkit.dev/v1
+  tags:
+  - Live Streams
+  properties:
+  - type: OpenAPI
+    url: openapi/shortkit-live-streams-api-openapi.yml
+  - type: Documentation
+    url: https://www.shortkit.dev/docs
+  - type: APIReference
+    url: https://www.shortkit.dev/docs/api/overview
+  - type: Authentication
+    url: authentication/shortkit-authentication.yml
+- aid: shortkit:shortkit-surveys-api
+  name: ShortKit Surveys API
+  description: Short polls injected between content items in the feed.
+  humanURL: https://www.shortkit.dev/docs
+  baseURL: https://api.shortkit.dev/v1
+  tags:
+  - Surveys
+  properties:
+  - type: OpenAPI
+    url: openapi/shortkit-surveys-api-openapi.yml
+  - type: Documentation
+    url: https://www.shortkit.dev/docs
+  - type: APIReference
+    url: https://www.shortkit.dev/docs/api/overview
+  - type: Authentication
+    url: authentication/shortkit-authentication.yml
+common:
+- type: DomainSecurity
+  url: security/shortkit-domain-security.yml
+- type: Website
+  url: https://www.shortkit.dev
+- type: DeveloperPortal
+  url: https://portal.shortkit.dev
+- type: Documentation
+  url: https://www.shortkit.dev/docs
+- type: APIReference
+  url: https://www.shortkit.dev/docs/api/overview
+- type: GettingStarted
+  url: https://www.shortkit.dev/docs/quickstart
+- type: Pricing
+  url: https://www.shortkit.dev/pricing
+- type: Blog
+  url: https://www.shortkit.dev/blog
+- type: SignUp
+  url: https://portal.shortkit.dev
+- type: TermsOfService
+  url: https://www.shortkit.dev/terms
+- type: PrivacyPolicy
+  url: https://www.shortkit.dev/privacy
+- type: GitHubOrganization
+  url: https://github.com/shortkit
+- type: Packages
+  url: packages/shortkit-packages.yml
+- type: SDKs
+  url: packages/shortkit-packages.yml
+- type: Components
+  url: components/shortkit-components.yml
+- type: Conventions
+  url: conventions/shortkit-conventions.yml
+- type: ErrorCatalog
+  url: errors/shortkit-problem-types.yml
+- type: Conformance
+  url: conformance/shortkit-conformance.yml
+- type: Lifecycle
+  url: lifecycle/shortkit-lifecycle.yml
+- type: DataModel
+  url: data-model/shortkit-data-model.yml
+- type: Webhooks
+  url: asyncapi/shortkit-webhooks.yml
+- type: MCPServer
+  url: mcp/shortkit-mcp.yml
+- type: LLMsTxt
+  url: llms/shortkit-llms.txt
+- type: Sandbox
+  url: sandbox/shortkit-sandbox.yml
+- type: AgentSkill
+  url: skills/_index.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+x-enrichment:
+  date: '2026-07-21'
+  status: enriched
+  artifacts_added: 20
+  pass: local-v1

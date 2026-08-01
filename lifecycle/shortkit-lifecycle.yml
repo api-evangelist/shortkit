@@ -1,0 +1,30 @@
+generated: '2026-07-21'
+method: derived
+source: >-
+  Derived from openapi/shortkit-openapi.yaml and https://www.shortkit.dev/docs/api/overview.
+  Searched for status page, deprecation/sunset policy, versioning policy and SLA.
+api: ShortKit API
+versioning:
+  style: URL path prefix
+  current: v1
+  base_url: https://api.shortkit.dev/v1
+deprecation:
+  policy_published: false
+  sunset_headers: not documented
+  notes: No public deprecation or Sunset/Deprecation (RFC 8594) policy found.
+status_page:
+  present: false
+  notes: No public status page found (/status returned 404).
+sla:
+  published_tiers:
+  - tier: Basic
+    sla: Standard SLA
+  - tier: Scale
+    sla: Custom SLA with 99.99% uptime guarantee
+  source: https://www.shortkit.dev/pricing
+  notes: SLA is commercial (per pricing tier), not a documented API deprecation lifecycle.
+object_lifecycles:
+  content_upload_status: [pending, processing, ready]
+  content_publish_status: [draft, published]
+  live_stream_status: [idle, active, ended]
+  survey_status: [draft, active, paused, archived]

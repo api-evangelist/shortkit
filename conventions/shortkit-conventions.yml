@@ -1,0 +1,57 @@
+generated: '2026-07-21'
+method: searched
+source: >-
+  https://www.shortkit.dev/docs/api/overview, https://www.shortkit.dev/docs/api/authentication,
+  https://www.shortkit.dev/docs/api/errors (GitHub: shortkit/docs api/*.mdx)
+api: ShortKit API
+base_url: https://api.shortkit.dev/v1
+transport: HTTPS required for all requests; JSON request/response bodies.
+authentication:
+  style: API key (two types)
+  publishable:
+    prefix: pk_{env}_
+    header: X-API-Key
+    access: read-only (published content, feed) + event ingestion + survey-response submission
+    client_safe: true
+  secret:
+    prefix: sk_{env}_
+    header: 'Authorization: Bearer'
+    access: full management (content CRUD, uploads, analytics, configuration)
+    storage: bcrypt-hashed server-side; plaintext shown once at creation; rotate if lost
+  environment_isolation: key prefix encodes live vs test; environments are fully isolated
+response_envelope:
+  shape: '{ data, meta, errors? }'
+  data: requested resource or array; null on errors
+  meta: always includes request_id; may include nextCursor
+  errors: present only on error responses; array of { code, message }
+pagination:
+  style: cursor-based
+  request_params: [limit, cursor]
+  response_field: meta.nextCursor
+  cursor_opaque: true
+  end_signal: meta.nextCursor absent
+  notes: Cursor tokens are opaque and must not be parsed, decoded, or constructed manually.
+request_tracing:
+  field: meta.request_id
+  example: req_abc123def456
+  usage: include when contacting support about a specific request
+rate_limiting:
+  scope: secret-key requests
+  limit: 120 requests per minute
+  algorithm: sliding window
+  exceeded_status: 429
+  exceeded_code: rate_limited
+error_handling:
+  recommendation: branch on errors[0].code rather than HTTP status
+  format: custom envelope (NOT RFC 9457 problem+json)
+  cross_ref: errors/shortkit-problem-types.yml
+versioning:
+  style: URL path
+  current: v1
+  cross_ref: lifecycle/shortkit-lifecycle.yml
+idempotency:
+  supported: false
+  notes: >-
+    No Idempotency-Key header is documented. A 409 conflict is returned for conflicting state
+    (e.g. duplicate survey response), but there is no client-supplied idempotency key mechanism.
+timestamps: ISO 8601 / RFC 3339 throughout (createdAt, updatedAt, publishAt, expiresAt, etc.)

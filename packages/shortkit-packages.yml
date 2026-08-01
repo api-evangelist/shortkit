@@ -1,0 +1,69 @@
+generated: '2026-07-21'
+method: searched
+source: >-
+  https://github.com/shortkit/shortkit-ios (Package.swift), https://registry.npmjs.org/@shortkitsdk/react-native,
+  https://repo1.maven.org/maven2/dev/shortkit/shortkit/, https://pub.dev/packages/shortkit_flutter,
+  https://www.shortkit.dev/docs/sdk/installation
+summary:
+  official_count: 4
+  registries:
+  - Swift Package Manager
+  - npm
+  - Maven Central
+  - pub.dev
+packages:
+- name: ShortKitSDK
+  language: Swift
+  platform: iOS
+  registry: Swift Package Manager
+  official: true
+  repo: https://github.com/shortkit/shortkit-ios
+  install: 'https://github.com/shortkit/shortkit-ios'
+  product: ShortKitSDK
+  version: 0.2.68
+  distribution: binary XCFramework (.binaryTarget)
+  requirements: iOS 16.0+, Xcode 15+, Swift 5.9+
+  dependencies: none (Foundation, UIKit, AVFoundation, SwiftUI only)
+  verified_status: 200
+  notes: Core SDK — feed, player, overlays, analytics, captions.
+- name: '@shortkitsdk/react-native'
+  language: JavaScript/TypeScript
+  platform: React Native / Expo
+  registry: npm
+  official: true
+  install: npm install @shortkitsdk/react-native
+  repo: https://github.com/shortkit
+  requirements: React Native 0.76+, iOS 16.0+, Android API 24+
+  verified_status: 200
+  notes: Single npm package bundling native iOS + Android modules; Expo config plugin supported.
+- name: dev.shortkit:shortkit
+  language: Kotlin
+  platform: Android
+  registry: Maven Central
+  official: true
+  install: implementation("dev.shortkit:shortkit:0.2.22")
+  requirements: Android API 24+ (Android 7.0), Kotlin 1.9+
+  dependencies: Media3 (ExoPlayer), OkHttp, AndroidX Fragment, ViewPager2
+  verified_status: 200
+  notes: Core SDK — feed, player, overlays, analytics, captions.
+- name: shortkit_flutter
+  language: Dart
+  platform: Flutter
+  registry: pub.dev
+  official: true
+  install: 'shortkit_flutter: ^0.2.22'
+  requirements: Flutter 3.38+, Dart 3.10+, iOS 16.0+, Android API 24+
+  dependencies: bundled native iOS and Android SDKs
+  verified_status: 200
+  notes: Flutter plugin wrapping the native SDKs.
+- name: ShortKit Web SDK
+  language: JavaScript
+  platform: Web
+  registry: npm/CDN
+  official: true
+  install: 'documented at https://www.shortkit.dev/docs/sdk/installation (Web tab)'
+  requirements: Chrome 80+, Safari 14+, Firefox 78+, Edge 80+, Node.js 16+
+  verified_status: unverified
+  notes: >-
+    A Web SDK is documented in the installation guide (npm/CDN). The exact npm package name is
+    behind the partner-gated docs; not independently verified on a public registry.

@@ -1,0 +1,20 @@
+generated: '2026-07-21'
+method: generated
+source: >-
+  Generated from openapi/shortkit-openapi.yaml operations + ShortKit API reference. Operation IDs
+  are grounded in the documented REST surface. Note: shortkit/docs ships a default (template)
+  AGENTS.md only; these skills are authored from the API, not copied from a provider-published skill.
+api: ShortKit API
+skills:
+- name: shortkit-upload-video
+  file: shortkit-upload-video.md
+  description: Upload a video, complete the signed-URL transfer, and confirm it is live via webhook.
+  operations: [uploadContent, getContent]
+- name: shortkit-live-stream
+  file: shortkit-live-stream.md
+  description: Create a live stream, broadcast to the RTMPS endpoint, end it, and clip the recording.
+  operations: [createLiveStream, getLiveStream, endLiveStream, createLiveStreamClips]
+- name: shortkit-in-feed-survey
+  file: shortkit-in-feed-survey.md
+  description: Create an in-feed survey, activate it, and read aggregated responses.
+  operations: [createSurvey, getSurvey, updateSurvey, submitSurveyResponse]

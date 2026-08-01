@@ -1,0 +1,25 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/shortkit-openapi.yaml
+summary:
+  types:
+  - apiKey
+  - http
+  api_key_in:
+  - header
+schemes:
+- name: PublishableKey
+  type: apiKey
+  in: header
+  parameter: X-API-Key
+  description: Publishable key (prefix pk_{env}_). Read-only access to published content plus
+    event ingestion and survey-response submission. Safe for client-side/mobile use.
+  sources:
+  - openapi/shortkit-openapi.yaml
+- name: SecretKey
+  type: http
+  scheme: bearer
+  description: Secret key (prefix sk_{env}_) sent as a Bearer token. Full management access.
+    Server-side only; bcrypt-hashed at rest and shown once at creation.
+  sources:
+  - openapi/shortkit-openapi.yaml

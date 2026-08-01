@@ -1,0 +1,619 @@
+# generated: 2026-07-21
+# method: generated
+# source: https://github.com/shortkit/docs (Mintlify API reference, api/*.mdx) + https://api.shortkit.dev/v1
+# note: Hand-generated from ShortKit's public documentation. ShortKit publishes no machine-readable
+#       OpenAPI; this spec is a faithful reconstruction of the documented REST surface. No fabricated
+#       endpoints — every path/method/field is drawn verbatim from the published API reference.
+openapi: 3.1.0
+info:
+  title: ShortKit API
+  version: v1
+  description: >-
+    The ShortKit API lets you manage content, uploads, live streams, surveys, analytics, and ad
+    configuration for your short-form vertical video feeds. It is organized around REST, uses
+    standard HTTP methods, returns JSON wrapped in a standard envelope, and uses conventional HTTP
+    status codes. All requests must be made over HTTPS.
+  contact:
+    name: ShortKit
+    url: https://www.shortkit.dev
+  x-logo:
+    url: https://www.shortkit.dev/icon.svg
+servers:
+  - url: https://api.shortkit.dev/v1
+    description: Production (base URL; environment is selected by the API key prefix — live vs test)
+security:
+  - SecretKey: []
+tags:
+  - name: Content
+    description: Videos, image carousels, and video carousels in your feed.
+  - name: Live Streams
+    description: Real-time broadcasts that appear in the feed alongside on-demand content.
+  - name: Surveys
+    description: Short polls injected between content items in the feed.
+  - name: Analytics
+    description: Events and metrics for user interaction with your content.
+  - name: Ad Configuration
+    description: How ad slots are interleaved into the feed.
+paths:
+  /content:
+    get:
+      operationId: listContent
+      summary: List Content
+      tags: [Content]
+      security:
+        - SecretKey: []
+        - PublishableKey: []
+      parameters:
+        - {name: limit, in: query, schema: {type: integer, default: 20}}
+        - {name: cursor, in: query, schema: {type: string}, description: Opaque cursor from meta.nextCursor.}
+        - {name: section, in: query, schema: {type: string}}
+        - {name: contentType, in: query, schema: {type: string}}
+      responses:
+        '200': {$ref: '#/components/responses/ContentList'}
+        '401': {$ref: '#/components/responses/Error'}
+  /content/upload:
+    post:
+      operationId: uploadContent
+      summary: Upload Content
+      description: Send metadata and receive signed upload URLs; the client uploads media directly to cloud storage.
+      tags: [Content]
+      security:
+        - SecretKey: []
+        - PublishableKey: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/UploadRequest'}
+      responses:
+        '200': {$ref: '#/components/responses/ContentEnvelope'}
+        '400': {$ref: '#/components/responses/Error'}
+  /content/import:
+    post:
+      operationId: importContent
+      summary: Import Content
+      description: Provide a source URL; ShortKit fetches and processes the media for you.
+      tags: [Content]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [contentType, sourceUrl]
+              properties:
+                contentType: {type: string, enum: [video, carousel, video_carousel]}
+                sourceUrl: {type: string, format: uri}
+                title: {type: string, maxLength: 200}
+                description: {type: string, maxLength: 2000}
+                tags: {type: array, items: {type: string}}
+                section: {type: string, maxLength: 200}
+                author: {type: string, maxLength: 200}
+                callbackUrl: {type: string, format: uri}
+      responses:
+        '200': {$ref: '#/components/responses/ContentEnvelope'}
+        '400': {$ref: '#/components/responses/Error'}
+  /content/count:
+    get:
+      operationId: getContentCount
+      summary: Get Content Count
+      tags: [Content]
+      responses:
+        '200':
+          description: Count of content items.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data: {type: object, properties: {count: {type: integer}}}
+                  meta: {$ref: '#/components/schemas/Meta'}
+  /content/search:
+    get:
+      operationId: searchContent
+      summary: Search Content
+      tags: [Content]
+      parameters:
+        - {name: q, in: query, required: true, schema: {type: string}}
+        - {name: limit, in: query, schema: {type: integer, default: 20}}
+        - {name: cursor, in: query, schema: {type: string}}
+      responses:
+        '200': {$ref: '#/components/responses/ContentList'}
+  /content/{id}:
+    parameters:
+      - {name: id, in: path, required: true, schema: {type: string, format: uuid}}
+    get:
+      operationId: getContent
+      summary: Get Content
+      tags: [Content]
+      security:
+        - SecretKey: []
+        - PublishableKey: []
+      responses:
+        '200': {$ref: '#/components/responses/ContentEnvelope'}
+        '404': {$ref: '#/components/responses/Error'}
+    patch:
+      operationId: updateContent
+      summary: Update Content
+      tags: [Content]
+      requestBody:
+        content:
+          application/json:
+            schema: {type: object, additionalProperties: true}
+      responses:
+        '200': {$ref: '#/components/responses/ContentEnvelope'}
+        '404': {$ref: '#/components/responses/Error'}
+    delete:
+      operationId: deleteContent
+      summary: Delete Content
+      tags: [Content]
+      responses:
+        '200': {description: Deleted.}
+        '404': {$ref: '#/components/responses/Error'}
+  /events:
+    post:
+      operationId: ingestEvents
+      summary: Ingest Events
+      description: Client-side event ingestion. Called automatically by the SDK using a publishable key.
+      tags: [Analytics]
+      security:
+        - PublishableKey: []
+      requestBody:
+        content:
+          application/json:
+            schema: {type: object, additionalProperties: true}
+      responses:
+        '202': {description: Accepted.}
+  /events/explore:
+    get:
+      operationId: listEvents
+      summary: List Events
+      tags: [Analytics]
+      parameters:
+        - {name: event_type, in: query, schema: {type: string}}
+        - {name: content_id, in: query, schema: {type: string}}
+        - {name: limit, in: query, schema: {type: integer, default: 20}}
+        - {name: cursor, in: query, schema: {type: string}}
+      responses:
+        '200':
+          description: List of events.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data: {type: array, items: {$ref: '#/components/schemas/Event'}}
+                  meta: {$ref: '#/components/schemas/Meta'}
+  /metrics/{metric}:
+    get:
+      operationId: getMetric
+      summary: Get Metric
+      tags: [Analytics]
+      parameters:
+        - {name: metric, in: path, required: true, schema: {type: string}}
+      responses:
+        '200': {description: Metric value.}
+  /metrics/{metric}/timeseries:
+    get:
+      operationId: getMetricTimeseries
+      summary: Get Metric Timeseries
+      tags: [Analytics]
+      parameters:
+        - {name: metric, in: path, required: true, schema: {type: string}}
+        - {name: interval, in: query, schema: {type: string}}
+      responses:
+        '200': {description: Time series for the metric.}
+  /live-streams:
+    get:
+      operationId: listLiveStreams
+      summary: List Live Streams
+      tags: [Live Streams]
+      responses:
+        '200':
+          description: List of live streams.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data: {type: array, items: {$ref: '#/components/schemas/LiveStream'}}
+                  meta: {$ref: '#/components/schemas/Meta'}
+    post:
+      operationId: createLiveStream
+      summary: Create Live Stream
+      description: Returns a ready-to-use RTMPS broadcast URL and stream key (shown once).
+      tags: [Live Streams]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title: {type: string, maxLength: 200}
+                protocol: {type: string, enum: [hls, webrtc]}
+                latencyMode: {type: string, enum: [low, reduced, standard]}
+                reconnectWindow: {type: integer, minimum: 0, maximum: 1800, default: 60}
+      responses:
+        '200':
+          description: Created live stream (includes rtmpUrl + streamKey).
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data: {$ref: '#/components/schemas/LiveStream'}
+                  meta: {$ref: '#/components/schemas/Meta'}
+  /live-streams/status:
+    get:
+      operationId: getLiveStreamStatus
+      summary: Get Live Stream Status
+      tags: [Live Streams]
+      responses:
+        '200': {description: Aggregate live stream status.}
+  /live-streams/{id}:
+    parameters:
+      - {name: id, in: path, required: true, schema: {type: string, format: uuid}}
+    get:
+      operationId: getLiveStream
+      summary: Get Live Stream
+      tags: [Live Streams]
+      responses:
+        '200':
+          description: The live stream.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data: {$ref: '#/components/schemas/LiveStream'}
+                  meta: {$ref: '#/components/schemas/Meta'}
+        '404': {$ref: '#/components/responses/Error'}
+    delete:
+      operationId: deleteLiveStream
+      summary: Delete Live Stream
+      tags: [Live Streams]
+      responses:
+        '200': {description: Deleted.}
+  /live-streams/{id}/end:
+    post:
+      operationId: endLiveStream
+      summary: End Live Stream
+      tags: [Live Streams]
+      parameters:
+        - {name: id, in: path, required: true, schema: {type: string, format: uuid}}
+      responses:
+        '200': {description: Stream ended.}
+  /live-streams/{id}/clips:
+    post:
+      operationId: createLiveStreamClips
+      summary: Create Clips
+      tags: [Live Streams]
+      parameters:
+        - {name: id, in: path, required: true, schema: {type: string, format: uuid}}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                clips:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      startSeconds: {type: number}
+                      endSeconds: {type: number}
+      responses:
+        '200': {description: Clips created.}
+  /surveys:
+    get:
+      operationId: listSurveys
+      summary: List Surveys
+      tags: [Surveys]
+      responses:
+        '200':
+          description: List of surveys.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data: {type: array, items: {$ref: '#/components/schemas/Survey'}}
+                  meta: {$ref: '#/components/schemas/Meta'}
+    post:
+      operationId: createSurvey
+      summary: Create Survey
+      tags: [Surveys]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [question, options]
+              properties:
+                title: {type: string}
+                question: {type: string}
+                priority: {type: integer}
+                autoAdvanceDelay: {type: number}
+                options:
+                  type: array
+                  items: {type: object, properties: {text: {type: string}, position: {type: integer}}}
+      responses:
+        '200': {$ref: '#/components/responses/SurveyEnvelope'}
+  /surveys/{id}:
+    parameters:
+      - {name: id, in: path, required: true, schema: {type: string, format: uuid}}
+    get:
+      operationId: getSurvey
+      summary: Get Survey
+      tags: [Surveys]
+      responses:
+        '200': {$ref: '#/components/responses/SurveyEnvelope'}
+        '404': {$ref: '#/components/responses/Error'}
+    put:
+      operationId: updateSurvey
+      summary: Update Survey
+      tags: [Surveys]
+      requestBody:
+        content:
+          application/json:
+            schema: {type: object, additionalProperties: true}
+      responses:
+        '200': {$ref: '#/components/responses/SurveyEnvelope'}
+    delete:
+      operationId: deleteSurvey
+      summary: Delete Survey
+      tags: [Surveys]
+      responses:
+        '200': {description: Deleted.}
+  /surveys/{id}/responses:
+    post:
+      operationId: submitSurveyResponse
+      summary: Submit Response
+      description: Submit an end-user response to a survey. Accepts a publishable key.
+      tags: [Surveys]
+      security:
+        - PublishableKey: []
+        - SecretKey: []
+      parameters:
+        - {name: id, in: path, required: true, schema: {type: string, format: uuid}}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [optionId]
+              properties:
+                optionId: {type: string, format: uuid}
+      responses:
+        '200': {description: Response recorded.}
+        '409': {$ref: '#/components/responses/Error'}
+  /ad-config:
+    get:
+      operationId: getAdConfig
+      summary: Get Ad Config
+      tags: [Ad Configuration]
+      responses:
+        '200': {$ref: '#/components/responses/AdConfigEnvelope'}
+    put:
+      operationId: updateAdConfig
+      summary: Update Ad Config
+      tags: [Ad Configuration]
+      requestBody:
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/AdConfig'}
+      responses:
+        '200': {$ref: '#/components/responses/AdConfigEnvelope'}
+components:
+  securitySchemes:
+    PublishableKey:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      description: >-
+        Publishable key (prefix pk_{env}_). Read-only access to published content plus event
+        ingestion and survey-response submission. Safe for client-side/mobile use.
+    SecretKey:
+      type: http
+      scheme: bearer
+      description: >-
+        Secret key (prefix sk_{env}_) sent as a Bearer token. Full management access. Server-side
+        only; bcrypt-hashed at rest and shown once at creation.
+  responses:
+    Error:
+      description: Error response (standard envelope with errors[]).
+      content:
+        application/json:
+          schema: {$ref: '#/components/schemas/ErrorEnvelope'}
+    ContentEnvelope:
+      description: A single content item.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data: {$ref: '#/components/schemas/Content'}
+              meta: {$ref: '#/components/schemas/Meta'}
+    ContentList:
+      description: A page of content items.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data: {type: array, items: {$ref: '#/components/schemas/Content'}}
+              meta: {$ref: '#/components/schemas/Meta'}
+    SurveyEnvelope:
+      description: A single survey.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data: {$ref: '#/components/schemas/Survey'}
+              meta: {$ref: '#/components/schemas/Meta'}
+    AdConfigEnvelope:
+      description: The ad configuration.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data: {$ref: '#/components/schemas/AdConfig'}
+              meta: {$ref: '#/components/schemas/Meta'}
+  schemas:
+    Meta:
+      type: object
+      description: Envelope metadata. Always includes request_id; nextCursor present when more results exist.
+      properties:
+        request_id: {type: string, example: req_abc123def456}
+        nextCursor: {type: string, nullable: true}
+    ErrorEnvelope:
+      type: object
+      properties:
+        data: {type: 'null'}
+        meta: {$ref: '#/components/schemas/Meta'}
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+                enum: [invalid_request, invalid_api_key, forbidden, not_found, conflict, rate_limited, internal_error]
+              message: {type: string}
+    UploadRequest:
+      type: object
+      required: [contentType, title]
+      properties:
+        contentType: {type: string, enum: [video, carousel, video_carousel]}
+        title: {type: string, maxLength: 200}
+        description: {type: string, maxLength: 2000}
+        tags: {type: array, items: {type: string}}
+        section: {type: string, maxLength: 200}
+        author: {type: string, maxLength: 200}
+        customMetadata: {type: object, additionalProperties: true}
+        protected: {type: boolean}
+        origin: {type: string, enum: [ios_upload, other], default: other}
+        publishAt: {type: string, format: date-time}
+        expiresAt: {type: string, format: date-time}
+        autoScrollInterval: {type: number}
+        callbackUrl: {type: string, format: uri, description: Webhook URL POSTed at each processing stage.}
+        images:
+          type: array
+          items:
+            type: object
+            properties:
+              position: {type: integer}
+              altText: {type: string}
+    Content:
+      type: object
+      properties:
+        id: {type: string, format: uuid}
+        contentType: {type: string, enum: [video, carousel, video_carousel, live_stream]}
+        title: {type: string}
+        description: {type: string}
+        uploadStatus: {type: string, enum: [pending, processing, ready]}
+        publishStatus: {type: string, enum: [draft, published]}
+        duration: {type: number}
+        streamingUrl: {type: string}
+        thumbnailUrl: {type: string}
+        protected: {type: boolean}
+        section: {type: string}
+        author: {type: string}
+        tags: {type: array, items: {type: string}}
+        customMetadata: {type: object, additionalProperties: true}
+        captionTracks: {type: array, items: {type: object}}
+        images: {type: array, items: {type: object}}
+        liveStreamId: {type: string, nullable: true}
+        publishAt: {type: string, nullable: true}
+        expiresAt: {type: string, nullable: true}
+        width: {type: integer}
+        height: {type: integer}
+        aspectRatio: {type: string, example: '9:16'}
+        maxFrameRate: {type: integer}
+        videoQuality: {type: string}
+        resolutionTier: {type: string}
+        createdAt: {type: string, format: date-time}
+        updatedAt: {type: string, format: date-time}
+    LiveStream:
+      type: object
+      properties:
+        id: {type: string, format: uuid}
+        playbackId: {type: string}
+        status: {type: string, enum: [idle, active, ended]}
+        protocol: {type: string, enum: [hls, webrtc]}
+        title: {type: string, nullable: true}
+        latencyMode: {type: string, enum: [low, reduced, standard], nullable: true}
+        reconnectWindow: {type: integer, nullable: true}
+        rtmpUrl: {type: string, nullable: true, description: Sensitive — broadcast URL with embedded credentials. Returned only on create.}
+        streamKey: {type: string, nullable: true, description: Sensitive. Returned only on create.}
+        startedAt: {type: string, nullable: true}
+        endedAt: {type: string, nullable: true}
+        createdAt: {type: string, format: date-time}
+    Survey:
+      type: object
+      properties:
+        id: {type: string, format: uuid}
+        title: {type: string}
+        question: {type: string}
+        status: {type: string, enum: [draft, active, paused, archived]}
+        priority: {type: integer}
+        autoAdvanceDelay: {type: number}
+        options:
+          type: array
+          items:
+            type: object
+            properties:
+              id: {type: string, format: uuid}
+              text: {type: string}
+              position: {type: integer}
+              responseCount: {type: integer}
+              createdAt: {type: string, format: date-time}
+        placementRules:
+          type: array
+          items:
+            type: object
+            properties:
+              id: {type: string, format: uuid}
+              ruleType: {type: string, example: min_videos_before}
+              ruleValue: {type: object, additionalProperties: true}
+              createdAt: {type: string, format: date-time}
+        totalResponses: {type: integer}
+        createdAt: {type: string, format: date-time}
+        updatedAt: {type: string, format: date-time}
+    Event:
+      type: object
+      properties:
+        id: {type: string, format: uuid}
+        event_type: {type: string, example: playStart}
+        content_id: {type: string, nullable: true}
+        user_id: {type: string, example: user_abc123}
+        session_id: {type: string, nullable: true}
+        view_session_id: {type: string, nullable: true}
+        timestamp: {type: string, format: date-time}
+        received_at: {type: string, format: date-time}
+        event_data: {type: object, additionalProperties: true}
+    AdConfig:
+      type: object
+      properties:
+        enabled: {type: boolean, default: false}
+        frequency: {type: integer, default: 5}
+        firstAdOffset: {type: integer, default: 3}
+        maxPerPage: {type: integer, default: 3}
+        adTagUrl: {type: string, nullable: true}
+        adUnitId: {type: string, nullable: true}
+        skipPolicy: {type: string, default: skippable_after}
+        skipDelaySeconds: {type: integer, default: 5}
+        defaultTargeting: {type: object, additionalProperties: true}
+        nativeEnabled: {type: boolean, default: false}
+        nativeFormatId: {type: string, nullable: true}
+        nativeAdUnitId: {type: string, nullable: true}
+        nativeVideoUrlKey: {type: string, default: video_url}
+        nativeHeadlineKey: {type: string, default: headline}
+        nativeCtaKey: {type: string, default: cta_text}
+        nativeSponsorKey: {type: string, default: sponsor_name}
+        nativeSponsorLogoKey: {type: string, default: sponsor_logo}

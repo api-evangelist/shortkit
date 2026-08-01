@@ -1,0 +1,46 @@
+generated: '2026-07-21'
+method: searched
+source: 'https://www.shortkit.dev/docs/api/content/upload (Callback events section — GitHub shortkit/docs api/content/upload.mdx)'
+api: ShortKit API
+kind: Webhooks
+transport:
+  mechanism: HTTP callback
+  subscription: per-request via the `callbackUrl` field on content upload/import
+  applies_to: [video, carousel]
+  delivery: ShortKit POSTs to callbackUrl at each processing stage; your endpoint must return 2xx to acknowledge.
+  retries: not documented
+  signing: not documented
+events:
+- event: content.imported
+  status: processing
+  when: File received and processing has begun (video is already streamable; transcoding not yet complete).
+  payload_fields: [event, contentId, externalId, status, playbackId, title, source, timestamp]
+  notes: playbackId may be null at the earliest processing stage.
+- event: content.imported
+  status: ready
+  when: Transcoding complete; video fully available at all quality levels.
+  payload_fields: [event, contentId, externalId, status, playbackId, title, source, timestamp]
+  notes: playbackId is always present.
+- event: content.import_failed
+  status: error
+  when: Processing failed.
+  payload_fields: [event, contentId, externalId, status, error, title, source, timestamp]
+  notes: Includes a human-readable `error`; no playbackId.
+- event: content.imported
+  status: ready|errored
+  content_type: carousel
+  when: All carousel images have been validated (ready if >=1 image processed, errored if all failed).
+  payload_fields: [event, contentId, externalId, contentType, status, title, images, timestamp]
+  notes: Only successfully processed images are included in the images array.
+example_payload:
+  event: content.imported
+  contentId: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+  status: ready
+  playbackId: rJ4OE02Z0Z4IY01Eo4Vgup5OilG8xZB9
+  title: Product Launch Teaser
+  source: upload
+  timestamp: '2026-03-10T14:30:00.000Z'
+asyncapi_spec: none-published
+asyncapi_note: >-
+  ShortKit publishes no machine-readable AsyncAPI document. This is a faithful catalog of the
+  documented processing-pipeline webhooks; the event surface is real but described in prose only.

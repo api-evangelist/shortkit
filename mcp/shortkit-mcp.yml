@@ -1,0 +1,116 @@
+generated: '2026-07-21'
+method: derived
+source: >-
+  Derived from openapi/shortkit-openapi.yaml operations. No official hosted/remote ShortKit MCP
+  server was found (searched GitHub org shortkit, docs, and the MCP registry).
+api: ShortKit API
+status: candidate
+server:
+  official: false
+  hosted_url: none
+  note: >-
+    Candidate tool surface generated from the documented REST operations. ShortKit ships no
+    first-party MCP server today; a secret key (sk_) would back a server-side deployment.
+auth:
+  scheme: bearer (secret key sk_{env}_) for management tools; publishable key (pk_) for read/ingest.
+tools:
+- name: list_content
+  operationId: listContent
+  method: GET
+  path: /content
+- name: upload_content
+  operationId: uploadContent
+  method: POST
+  path: /content/upload
+- name: import_content
+  operationId: importContent
+  method: POST
+  path: /content/import
+- name: get_content
+  operationId: getContent
+  method: GET
+  path: /content/{id}
+- name: search_content
+  operationId: searchContent
+  method: GET
+  path: /content/search
+- name: get_content_count
+  operationId: getContentCount
+  method: GET
+  path: /content/count
+- name: update_content
+  operationId: updateContent
+  method: PATCH
+  path: /content/{id}
+- name: delete_content
+  operationId: deleteContent
+  method: DELETE
+  path: /content/{id}
+- name: create_live_stream
+  operationId: createLiveStream
+  method: POST
+  path: /live-streams
+- name: list_live_streams
+  operationId: listLiveStreams
+  method: GET
+  path: /live-streams
+- name: get_live_stream
+  operationId: getLiveStream
+  method: GET
+  path: /live-streams/{id}
+- name: get_live_stream_status
+  operationId: getLiveStreamStatus
+  method: GET
+  path: /live-streams/status
+- name: end_live_stream
+  operationId: endLiveStream
+  method: POST
+  path: /live-streams/{id}/end
+- name: create_live_stream_clips
+  operationId: createLiveStreamClips
+  method: POST
+  path: /live-streams/{id}/clips
+- name: delete_live_stream
+  operationId: deleteLiveStream
+  method: DELETE
+  path: /live-streams/{id}
+- name: create_survey
+  operationId: createSurvey
+  method: POST
+  path: /surveys
+- name: list_surveys
+  operationId: listSurveys
+  method: GET
+  path: /surveys
+- name: get_survey
+  operationId: getSurvey
+  method: GET
+  path: /surveys/{id}
+- name: update_survey
+  operationId: updateSurvey
+  method: PUT
+  path: /surveys/{id}
+- name: delete_survey
+  operationId: deleteSurvey
+  method: DELETE
+  path: /surveys/{id}
+- name: list_events
+  operationId: listEvents
+  method: GET
+  path: /events/explore
+- name: get_metric
+  operationId: getMetric
+  method: GET
+  path: /metrics/{metric}
+- name: get_metric_timeseries
+  operationId: getMetricTimeseries
+  method: GET
+  path: /metrics/{metric}/timeseries
+- name: get_ad_config
+  operationId: getAdConfig
+  method: GET
+  path: /ad-config
+- name: update_ad_config
+  operationId: updateAdConfig
+  method: PUT
+  path: /ad-config
