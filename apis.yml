@@ -125,6 +125,8 @@ apis:
   - type: Authentication
     url: authentication/shortkit-authentication.yml
 common:
+- type: Overlay
+  url: overlays/shortkit-openapi-overlay.yaml
 - type: DomainSecurity
   url: security/shortkit-domain-security.yml
 - type: Website
