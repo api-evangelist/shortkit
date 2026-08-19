@@ -1,0 +1,1189 @@
+{
+  "item": [
+    {
+      "id": "7fed892f-e6bb-4058-bf7d-2afae0f1a79a",
+      "name": "Content",
+      "description": {
+        "content": "Videos, image carousels, and video carousels in your feed.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6fd640de-a9d0-4566-9731-07f4d8b470cd",
+          "name": "List Content",
+          "request": {
+            "name": "List Content",
+            "description": {},
+            "url": {
+              "path": [
+                "content"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "20"
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Opaque cursor from meta.nextCursor."
+                },
+                {
+                  "disabled": false,
+                  "key": "section",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "contentType",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "82771299-d345-4f89-b780-8c2f07a8a4b0",
+              "name": "A page of content items.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "content"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "section",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "contentType",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"8b3f5bd3-511d-c85e-04ad-b5747b85addd\",\n      \"contentType\": \"live_stream\",\n      \"title\": \"string\",\n      \"description\": \"string\",\n      \"uploadStatus\": \"pending\",\n      \"publishStatus\": \"published\",\n      \"duration\": 1347.4895693869782,\n      \"streamingUrl\": \"string\",\n      \"thumbnailUrl\": \"string\",\n      \"protected\": false,\n      \"section\": \"string\",\n      \"author\": \"string\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"customMetadata\": {\n        \"key_0\": \"string\"\n      },\n      \"liveStreamId\": \"string\",\n      \"publishAt\": \"string\",\n      \"expiresAt\": \"string\",\n      \"width\": 6985,\n      \"height\": 4720,\n      \"aspectRatio\": \"9:16\",\n      \"maxFrameRate\": 7009,\n      \"videoQuality\": \"string\",\n      \"resolutionTier\": \"string\",\n      \"createdAt\": \"1976-05-02T14:15:07.679Z\",\n      \"updatedAt\": \"1954-04-08T08:23:34.118Z\"\n    },\n    {\n      \"id\": \"e4dde80f-137a-a904-55b3-24f50e4978d1\",\n      \"contentType\": \"carousel\",\n      \"title\": \"string\",\n      \"description\": \"string\",\n      \"uploadStatus\": \"processing\",\n      \"publishStatus\": \"draft\",\n      \"duration\": 2791.4876133566936,\n      \"streamingUrl\": \"string\",\n      \"thumbnailUrl\": \"string\",\n      \"protected\": false,\n      \"section\": \"string\",\n      \"author\": \"string\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"customMetadata\": {\n        \"key_0\": false,\n        \"key_1\": 8632.88280420427,\n        \"key_2\": 8259.305059823426\n      },\n      \"liveStreamId\": \"string\",\n      \"publishAt\": \"string\",\n      \"expiresAt\": \"string\",\n      \"width\": 9497,\n      \"height\": 6250,\n      \"aspectRatio\": \"9:16\",\n      \"maxFrameRate\": 2494,\n      \"videoQuality\": \"string\",\n      \"resolutionTier\": \"string\",\n      \"createdAt\": \"2024-10-17T12:23:02.051Z\",\n      \"updatedAt\": \"2024-10-22T08:17:18.661Z\"\n    }\n  ],\n  \"meta\": {\n    \"request_id\": \"req_abc123def456\",\n    \"nextCursor\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fde71a36-8eaf-4c99-8f94-dab06fec910f",
+              "name": "Error response (standard envelope with errors[]).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "content"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "section",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "contentType",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": null,\n  \"meta\": {\n    \"request_id\": \"req_abc123def456\",\n    \"nextCursor\": \"string\"\n  },\n  \"errors\": [\n    {\n      \"code\": \"rate_limited\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"not_found\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e654539b-3bd0-486e-a9cf-c92eeb2e9805",
+          "name": "Upload Content",
+          "request": {
+            "name": "Upload Content",
+            "description": {
+              "content": "Send metadata and receive signed upload URLs; the client uploads media directly to cloud storage.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "content",
+                "upload"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"contentType\": \"<string>\",\n  \"title\": \"<string>\",\n  \"description\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"section\": \"<string>\",\n  \"author\": \"<string>\",\n  \"customMetadata\": {\n    \"key_0\": false\n  },\n  \"protected\": \"<boolean>\",\n  \"origin\": \"other\",\n  \"publishAt\": \"<dateTime>\",\n  \"expiresAt\": \"<dateTime>\",\n  \"autoScrollInterval\": \"<number>\",\n  \"callbackUrl\": \"<uri>\",\n  \"images\": [\n    {\n      \"position\": \"<integer>\",\n      \"altText\": \"<string>\"\n    },\n    {\n      \"position\": \"<integer>\",\n      \"altText\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "47731a66-feb1-4932-9b08-1ec92a4556a0",
+              "name": "A single content item.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "content",
+                    "upload"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"contentType\": \"<string>\",\n  \"title\": \"<string>\",\n  \"description\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"section\": \"<string>\",\n  \"author\": \"<string>\",\n  \"customMetadata\": {\n    \"key_0\": 4300.594772160995,\n    \"key_1\": 3232\n  },\n  \"protected\": \"<boolean>\",\n  \"origin\": \"other\",\n  \"publishAt\": \"<dateTime>\",\n  \"expiresAt\": \"<dateTime>\",\n  \"autoScrollInterval\": \"<number>\",\n  \"callbackUrl\": \"<uri>\",\n  \"images\": [\n    {\n      \"position\": \"<integer>\",\n      \"altText\": \"<string>\"\n    },\n    {\n      \"position\": \"<integer>\",\n      \"altText\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"4bf06d82-3616-6e8b-c14d-3cf9056697b8\",\n    \"contentType\": \"video_carousel\",\n    \"title\": \"string\",\n    \"description\": \"string\",\n    \"uploadStatus\": \"pending\",\n    \"publishStatus\": \"draft\",\n    \"duration\": 6182.6054376475995,\n    \"streamingUrl\": \"string\",\n    \"thumbnailUrl\": \"string\",\n    \"protected\": false,\n    \"section\": \"string\",\n    \"author\": \"string\",\n    \"tags\": [\n      \"string\",\n      \"string\"\n    ],\n    \"customMetadata\": {\n      \"key_0\": false\n    },\n    \"liveStreamId\": \"string\",\n    \"publishAt\": \"string\",\n    \"expiresAt\": \"string\",\n    \"width\": 8478,\n    \"height\": 4545,\n    \"aspectRatio\": \"9:16\",\n    \"maxFrameRate\": 4870,\n    \"videoQuality\": \"string\",\n    \"resolutionTier\": \"string\",\n    \"createdAt\": \"1989-06-19T01:45:19.054Z\",\n    \"updatedAt\": \"2007-11-14T13:07:38.127Z\"\n  },\n  \"meta\": {\n    \"request_id\": \"req_abc123def456\",\n    \"nextCursor\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7eeaa25c-a2fc-4fa1-8bfe-c3a05607a1a0",
+              "name": "Error response (standard envelope with errors[]).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "content",
+                    "upload"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"contentType\": \"<string>\",\n  \"title\": \"<string>\",\n  \"description\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"section\": \"<string>\",\n  \"author\": \"<string>\",\n  \"customMetadata\": {\n    \"key_0\": 4300.594772160995,\n    \"key_1\": 3232\n  },\n  \"protected\": \"<boolean>\",\n  \"origin\": \"other\",\n  \"publishAt\": \"<dateTime>\",\n  \"expiresAt\": \"<dateTime>\",\n  \"autoScrollInterval\": \"<number>\",\n  \"callbackUrl\": \"<uri>\",\n  \"images\": [\n    {\n      \"position\": \"<integer>\",\n      \"altText\": \"<string>\"\n    },\n    {\n      \"position\": \"<integer>\",\n      \"altText\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": null,\n  \"meta\": {\n    \"request_id\": \"req_abc123def456\",\n    \"nextCursor\": \"string\"\n  },\n  \"errors\": [\n    {\n      \"code\": \"rate_limited\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"conflict\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9cfc48dd-5790-4792-930a-033d5e3da055",
+          "name": "Import Content",
+          "request": {
+            "name": "Import Content",
+            "description": {
+              "content": "Provide a source URL; ShortKit fetches and processes the media for you.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "content",
+                "import"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"contentType\": \"<string>\",\n  \"sourceUrl\": \"<uri>\",\n  \"title\": \"<string>\",\n  \"description\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"section\": \"<string>\",\n  \"author\": \"<string>\",\n  \"callbackUrl\": \"<uri>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2c5113a6-32f8-4dde-aec3-5ea527303963",
+              "name": "A single content item.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "content",
+                    "import"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"contentType\": \"<string>\",\n  \"sourceUrl\": \"<uri>\",\n  \"title\": \"<string>\",\n  \"description\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"section\": \"<string>\",\n  \"author\": \"<string>\",\n  \"callbackUrl\": \"<uri>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"4bf06d82-3616-6e8b-c14d-3cf9056697b8\",\n    \"contentType\": \"video_carousel\",\n    \"title\": \"string\",\n    \"description\": \"string\",\n    \"uploadStatus\": \"pending\",\n    \"publishStatus\": \"draft\",\n    \"duration\": 6182.6054376475995,\n    \"streamingUrl\": \"string\",\n    \"thumbnailUrl\": \"string\",\n    \"protected\": false,\n    \"section\": \"string\",\n    \"author\": \"string\",\n    \"tags\": [\n      \"string\",\n      \"string\"\n    ],\n    \"customMetadata\": {\n      \"key_0\": false\n    },\n    \"liveStreamId\": \"string\",\n    \"publishAt\": \"string\",\n    \"expiresAt\": \"string\",\n    \"width\": 8478,\n    \"height\": 4545,\n    \"aspectRatio\": \"9:16\",\n    \"maxFrameRate\": 4870,\n    \"videoQuality\": \"string\",\n    \"resolutionTier\": \"string\",\n    \"createdAt\": \"1989-06-19T01:45:19.054Z\",\n    \"updatedAt\": \"2007-11-14T13:07:38.127Z\"\n  },\n  \"meta\": {\n    \"request_id\": \"req_abc123def456\",\n    \"nextCursor\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2ceb2472-1588-4d6e-8cc3-341e7a36957f",
+              "name": "Error response (standard envelope with errors[]).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "content",
+                    "import"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"contentType\": \"<string>\",\n  \"sourceUrl\": \"<uri>\",\n  \"title\": \"<string>\",\n  \"description\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"section\": \"<string>\",\n  \"author\": \"<string>\",\n  \"callbackUrl\": \"<uri>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": null,\n  \"meta\": {\n    \"request_id\": \"req_abc123def456\",\n    \"nextCursor\": \"string\"\n  },\n  \"errors\": [\n    {\n      \"code\": \"rate_limited\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"conflict\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a557cd57-6d76-42e9-8abb-34903dd923e9",
+          "name": "Get Content Count",
+          "request": {
+            "name": "Get Content Count",
+            "description": {},
+            "url": {
+              "path": [
+                "content",
+                "count"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0d2a0536-8365-48d6-8330-63493bb13da3",
+              "name": "Count of content items.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "content",
+                    "count"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"count\": 9138\n  },\n  \"meta\": {\n    \"request_id\": \"req_abc123def456\",\n    \"nextCursor\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "822c3a78-95bb-4c2c-abdf-cf6de642ebc4",
+          "name": "Search Content",
+          "request": {
+            "name": "Search Content",
+            "description": {},
+            "url": {
+              "path": [
+                "content",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "q",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "20"
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4fb0f4d0-502e-4216-b39c-ace60ba28aed",
+              "name": "A page of content items.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "content",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"555a0421-2899-7669-2a6e-8f33753909a6\",\n      \"contentType\": \"carousel\",\n      \"title\": \"string\",\n      \"description\": \"string\",\n      \"uploadStatus\": \"ready\",\n      \"publishStatus\": \"draft\",\n      \"duration\": 4669.489981826141,\n      \"streamingUrl\": \"string\",\n      \"thumbnailUrl\": \"string\",\n      \"protected\": false,\n      \"section\": \"string\",\n      \"author\": \"string\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"customMetadata\": {\n        \"key_0\": true\n      },\n      \"liveStreamId\": \"string\",\n      \"publishAt\": \"string\",\n      \"expiresAt\": \"string\",\n      \"width\": 7926,\n      \"height\": 1343,\n      \"aspectRatio\": \"9:16\",\n      \"maxFrameRate\": 2277,\n      \"videoQuality\": \"string\",\n      \"resolutionTier\": \"string\",\n      \"createdAt\": \"1958-06-04T23:16:06.285Z\",\n      \"updatedAt\": \"2006-12-17T04:13:58.383Z\"\n    },\n    {\n      \"id\": \"6ec1077e-4258-dcf3-beda-3ddc92ab29e3\",\n      \"contentType\": \"video\",\n      \"title\": \"string\",\n      \"description\": \"string\",\n      \"uploadStatus\": \"ready\",\n      \"publishStatus\": \"draft\",\n      \"duration\": 2881.7423685488106,\n      \"streamingUrl\": \"string\",\n      \"thumbnailUrl\": \"string\",\n      \"protected\": false,\n      \"section\": \"string\",\n      \"author\": \"string\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"customMetadata\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"liveStreamId\": \"string\",\n      \"publishAt\": \"string\",\n      \"expiresAt\": \"string\",\n      \"width\": 5176,\n      \"height\": 4541,\n      \"aspectRatio\": \"9:16\",\n      \"maxFrameRate\": 9614,\n      \"videoQuality\": \"string\",\n      \"resolutionTier\": \"string\",\n      \"createdAt\": \"1951-02-22T16:16:15.458Z\",\n      \"updatedAt\": \"2018-10-31T03:54:41.707Z\"\n    }\n  ],\n  \"meta\": {\n    \"request_id\": \"req_abc123def456\",\n    \"nextCursor\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f5414a8e-d7d9-43e9-b8ae-f31afb363b6a",
+          "name": "Get Content",
+          "request": {
+            "name": "Get Content",
+            "description": {},
+            "url": {
+              "path": [
+                "content",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "88b3f644-4fb4-4898-ab1d-25e39b2ca7de",
+              "name": "A single content item.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "content",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"4bf06d82-3616-6e8b-c14d-3cf9056697b8\",\n    \"contentType\": \"video_carousel\",\n    \"title\": \"string\",\n    \"description\": \"string\",\n    \"uploadStatus\": \"pending\",\n    \"publishStatus\": \"draft\",\n    \"duration\": 6182.6054376475995,\n    \"streamingUrl\": \"string\",\n    \"thumbnailUrl\": \"string\",\n    \"protected\": false,\n    \"section\": \"string\",\n    \"author\": \"string\",\n    \"tags\": [\n      \"string\",\n      \"string\"\n    ],\n    \"customMetadata\": {\n      \"key_0\": false\n    },\n    \"liveStreamId\": \"string\",\n    \"publishAt\": \"string\",\n    \"expiresAt\": \"string\",\n    \"width\": 8478,\n    \"height\": 4545,\n    \"aspectRatio\": \"9:16\",\n    \"maxFrameRate\": 4870,\n    \"videoQuality\": \"string\",\n    \"resolutionTier\": \"string\",\n    \"createdAt\": \"1989-06-19T01:45:19.054Z\",\n    \"updatedAt\": \"2007-11-14T13:07:38.127Z\"\n  },\n  \"meta\": {\n    \"request_id\": \"req_abc123def456\",\n    \"nextCursor\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ca24cce5-a4a8-4fbb-804b-ad9b5d90b70f",
+              "name": "Error response (standard envelope with errors[]).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "content",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": null,\n  \"meta\": {\n    \"request_id\": \"req_abc123def456\",\n    \"nextCursor\": \"string\"\n  },\n  \"errors\": [\n    {\n      \"code\": \"rate_limited\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"conflict\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7ddb4183-9808-4670-9c71-a8257d940eb5",
+          "name": "Update Content",
+          "request": {
+            "name": "Update Content",
+            "description": {},
+            "url": {
+              "path": [
+                "content",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"key_0\": 6777.35460951025,\n  \"key_1\": \"string\",\n  \"key_2\": 8640,\n  \"key_3\": 4864,\n  \"key_4\": 9591.55054244133\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f6e84c33-4432-4a62-910a-2d7f2b38629a",
+              "name": "A single content item.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "content",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key_0\": 2996\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"4bf06d82-3616-6e8b-c14d-3cf9056697b8\",\n    \"contentType\": \"video_carousel\",\n    \"title\": \"string\",\n    \"description\": \"string\",\n    \"uploadStatus\": \"pending\",\n    \"publishStatus\": \"draft\",\n    \"duration\": 6182.6054376475995,\n    \"streamingUrl\": \"string\",\n    \"thumbnailUrl\": \"string\",\n    \"protected\": false,\n    \"section\": \"string\",\n    \"author\": \"string\",\n    \"tags\": [\n      \"string\",\n      \"string\"\n    ],\n    \"customMetadata\": {\n      \"key_0\": false\n    },\n    \"liveStreamId\": \"string\",\n    \"publishAt\": \"string\",\n    \"expiresAt\": \"string\",\n    \"width\": 8478,\n    \"height\": 4545,\n    \"aspectRatio\": \"9:16\",\n    \"maxFrameRate\": 4870,\n    \"videoQuality\": \"string\",\n    \"resolutionTier\": \"string\",\n    \"createdAt\": \"1989-06-19T01:45:19.054Z\",\n    \"updatedAt\": \"2007-11-14T13:07:38.127Z\"\n  },\n  \"meta\": {\n    \"request_id\": \"req_abc123def456\",\n    \"nextCursor\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c043c2e8-3efb-4efc-990a-baa18ea37e99",
+              "name": "Error response (standard envelope with errors[]).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "content",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key_0\": 2996\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": null,\n  \"meta\": {\n    \"request_id\": \"req_abc123def456\",\n    \"nextCursor\": \"string\"\n  },\n  \"errors\": [\n    {\n      \"code\": \"rate_limited\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"conflict\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "90447eea-9151-4810-b817-4a4dc6092e2d",
+          "name": "Delete Content",
+          "request": {
+            "name": "Delete Content",
+            "description": {},
+            "url": {
+              "path": [
+                "content",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "20acbad0-ce73-47cf-81b5-7136d7153a35",
+              "name": "Deleted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "content",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d828f1fa-e15c-4695-8fac-0a8fb4918b1c",
+              "name": "Error response (standard envelope with errors[]).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "content",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": null,\n  \"meta\": {\n    \"request_id\": \"req_abc123def456\",\n    \"nextCursor\": \"string\"\n  },\n  \"errors\": [\n    {\n      \"code\": \"rate_limited\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"conflict\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.shortkit.dev/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "027b1a3a-6338-41f1-bfd4-15c5c22d9867",
+    "name": "ShortKit Ad Configuration Content API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The ShortKit API lets you manage content, uploads, live streams, surveys, analytics, and ad configuration for your short-form vertical video feeds. It is organized around REST, uses standard HTTP methods, returns JSON wrapped in a standard envelope, and uses conventional HTTP status codes. All requests must be made over HTTPS.\n\nContact Support:\n Name: ShortKit",
+      "type": "text/plain"
+    }
+  }
+}

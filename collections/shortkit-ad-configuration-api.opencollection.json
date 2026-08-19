@@ -1,0 +1,50 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ShortKit Ad Configuration API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Ad Configuration",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Ad Config",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shortkit.dev/v1/ad-config"
+          },
+          "docs": "Get Ad Config"
+        },
+        {
+          "info": {
+            "name": "Update Ad Config",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.shortkit.dev/v1/ad-config",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update Ad Config"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

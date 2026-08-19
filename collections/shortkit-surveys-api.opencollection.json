@@ -1,0 +1,136 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ShortKit Ad Configuration Surveys API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Surveys",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Surveys",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shortkit.dev/v1/surveys"
+          },
+          "docs": "List Surveys"
+        },
+        {
+          "info": {
+            "name": "Create Survey",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shortkit.dev/v1/surveys",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create Survey"
+        },
+        {
+          "info": {
+            "name": "Get Survey",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shortkit.dev/v1/surveys/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get Survey"
+        },
+        {
+          "info": {
+            "name": "Update Survey",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.shortkit.dev/v1/surveys/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update Survey"
+        },
+        {
+          "info": {
+            "name": "Delete Survey",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.shortkit.dev/v1/surveys/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete Survey"
+        },
+        {
+          "info": {
+            "name": "Submit Response",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shortkit.dev/v1/surveys/:id/responses",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Submit an end-user response to a survey. Accepts a publishable key."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

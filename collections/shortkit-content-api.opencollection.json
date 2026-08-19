@@ -1,0 +1,197 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ShortKit Ad Configuration Content API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Content",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Content",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shortkit.dev/v1/content",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Opaque cursor from meta.nextCursor."
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "contentType",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List Content"
+        },
+        {
+          "info": {
+            "name": "Upload Content",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shortkit.dev/v1/content/upload",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Send metadata and receive signed upload URLs; the client uploads media directly to cloud storage."
+        },
+        {
+          "info": {
+            "name": "Import Content",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shortkit.dev/v1/content/import",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Provide a source URL; ShortKit fetches and processes the media for you."
+        },
+        {
+          "info": {
+            "name": "Get Content Count",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shortkit.dev/v1/content/count"
+          },
+          "docs": "Get Content Count"
+        },
+        {
+          "info": {
+            "name": "Search Content",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shortkit.dev/v1/content/search",
+            "params": [
+              {
+                "name": "q",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Search Content"
+        },
+        {
+          "info": {
+            "name": "Get Content",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shortkit.dev/v1/content/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get Content"
+        },
+        {
+          "info": {
+            "name": "Update Content",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.shortkit.dev/v1/content/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update Content"
+        },
+        {
+          "info": {
+            "name": "Delete Content",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.shortkit.dev/v1/content/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete Content"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

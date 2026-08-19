@@ -1,0 +1,703 @@
+{
+  "item": [
+    {
+      "id": "fe3bb5c2-0726-4029-8905-19bf14cdd71f",
+      "name": "Live Streams",
+      "description": {
+        "content": "Real-time broadcasts that appear in the feed alongside on-demand content.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "50722907-ec34-4213-aad2-e56bf2af83f4",
+          "name": "List Live Streams",
+          "request": {
+            "name": "List Live Streams",
+            "description": {},
+            "url": {
+              "path": [
+                "live-streams"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f183deb6-0b7f-4aec-9414-f47606a0c68f",
+              "name": "List of live streams.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "live-streams"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"74ff6385-8c90-e872-3791-de76f6b94a22\",\n      \"playbackId\": \"string\",\n      \"status\": \"active\",\n      \"protocol\": \"hls\",\n      \"title\": \"string\",\n      \"latencyMode\": \"standard\",\n      \"reconnectWindow\": 3436,\n      \"rtmpUrl\": \"string\",\n      \"streamKey\": \"string\",\n      \"startedAt\": \"string\",\n      \"endedAt\": \"string\",\n      \"createdAt\": \"1990-10-22T05:44:43.346Z\"\n    },\n    {\n      \"id\": \"5069a891-f83c-cfd5-4696-6bcd56602772\",\n      \"playbackId\": \"string\",\n      \"status\": \"active\",\n      \"protocol\": \"hls\",\n      \"title\": \"string\",\n      \"latencyMode\": \"reduced\",\n      \"reconnectWindow\": 7828,\n      \"rtmpUrl\": \"string\",\n      \"streamKey\": \"string\",\n      \"startedAt\": \"string\",\n      \"endedAt\": \"string\",\n      \"createdAt\": \"1969-06-12T08:04:42.176Z\"\n    }\n  ],\n  \"meta\": {\n    \"request_id\": \"req_abc123def456\",\n    \"nextCursor\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b9524390-2c3f-41a3-a101-ad6eae6c4482",
+          "name": "Create Live Stream",
+          "request": {
+            "name": "Create Live Stream",
+            "description": {
+              "content": "Returns a ready-to-use RTMPS broadcast URL and stream key (shown once).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "live-streams"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"<string>\",\n  \"protocol\": \"<string>\",\n  \"latencyMode\": \"<string>\",\n  \"reconnectWindow\": 60\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "051f34d5-773e-420f-98e1-7f27856a38d2",
+              "name": "Created live stream (includes rtmpUrl + streamKey).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "live-streams"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"protocol\": \"<string>\",\n  \"latencyMode\": \"<string>\",\n  \"reconnectWindow\": 60\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"8f5f66b8-16d3-a173-af21-5c16b87eb18f\",\n    \"playbackId\": \"string\",\n    \"status\": \"ended\",\n    \"protocol\": \"hls\",\n    \"title\": \"string\",\n    \"latencyMode\": \"reduced\",\n    \"reconnectWindow\": 766,\n    \"rtmpUrl\": \"string\",\n    \"streamKey\": \"string\",\n    \"startedAt\": \"string\",\n    \"endedAt\": \"string\",\n    \"createdAt\": \"1951-08-11T00:50:46.136Z\"\n  },\n  \"meta\": {\n    \"request_id\": \"req_abc123def456\",\n    \"nextCursor\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6e065bce-e18c-4c98-bb8e-18b8792ae617",
+          "name": "Get Live Stream Status",
+          "request": {
+            "name": "Get Live Stream Status",
+            "description": {},
+            "url": {
+              "path": [
+                "live-streams",
+                "status"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "67d8082b-f7e9-42b5-9bb4-5adce44161c2",
+              "name": "Aggregate live stream status.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "live-streams",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f4f03c46-7bb3-45d3-8d95-077eec5e0452",
+          "name": "Get Live Stream",
+          "request": {
+            "name": "Get Live Stream",
+            "description": {},
+            "url": {
+              "path": [
+                "live-streams",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1041484b-4072-4632-8722-159f2b8c38b8",
+              "name": "The live stream.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "live-streams",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"8f5f66b8-16d3-a173-af21-5c16b87eb18f\",\n    \"playbackId\": \"string\",\n    \"status\": \"ended\",\n    \"protocol\": \"hls\",\n    \"title\": \"string\",\n    \"latencyMode\": \"reduced\",\n    \"reconnectWindow\": 766,\n    \"rtmpUrl\": \"string\",\n    \"streamKey\": \"string\",\n    \"startedAt\": \"string\",\n    \"endedAt\": \"string\",\n    \"createdAt\": \"1951-08-11T00:50:46.136Z\"\n  },\n  \"meta\": {\n    \"request_id\": \"req_abc123def456\",\n    \"nextCursor\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6f1ca8b7-e317-40cb-b324-9dfa0ad6467b",
+              "name": "Error response (standard envelope with errors[]).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "live-streams",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": null,\n  \"meta\": {\n    \"request_id\": \"req_abc123def456\",\n    \"nextCursor\": \"string\"\n  },\n  \"errors\": [\n    {\n      \"code\": \"conflict\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"conflict\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0e2e2f0e-2709-43cb-bbf3-4ebe6694f110",
+          "name": "Delete Live Stream",
+          "request": {
+            "name": "Delete Live Stream",
+            "description": {},
+            "url": {
+              "path": [
+                "live-streams",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "12ee3903-f4b0-4600-be3e-f46181319462",
+              "name": "Deleted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "live-streams",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "258fec8f-4382-4ddb-a922-9419ad05a0c9",
+          "name": "End Live Stream",
+          "request": {
+            "name": "End Live Stream",
+            "description": {},
+            "url": {
+              "path": [
+                "live-streams",
+                ":id",
+                "end"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "609c2c6f-22c5-42d3-a80f-f4e1aae8b7eb",
+              "name": "Stream ended.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "live-streams",
+                    ":id",
+                    "end"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4fd4e9ee-db96-4ab6-94a8-1f2e9ed88f80",
+          "name": "Create Clips",
+          "request": {
+            "name": "Create Clips",
+            "description": {},
+            "url": {
+              "path": [
+                "live-streams",
+                ":id",
+                "clips"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"clips\": [\n    {\n      \"startSeconds\": \"<number>\",\n      \"endSeconds\": \"<number>\"\n    },\n    {\n      \"startSeconds\": \"<number>\",\n      \"endSeconds\": \"<number>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d36020c2-8fe7-41c8-a395-3a4d0ba77300",
+              "name": "Clips created.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "live-streams",
+                    ":id",
+                    "clips"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"clips\": [\n    {\n      \"startSeconds\": \"<number>\",\n      \"endSeconds\": \"<number>\"\n    },\n    {\n      \"startSeconds\": \"<number>\",\n      \"endSeconds\": \"<number>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.shortkit.dev/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "bcc305c1-7aff-494e-8315-5cfb93bfc7cf",
+    "name": "ShortKit Ad Configuration Live Streams API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The ShortKit API lets you manage content, uploads, live streams, surveys, analytics, and ad configuration for your short-form vertical video feeds. It is organized around REST, uses standard HTTP methods, returns JSON wrapped in a standard envelope, and uses conventional HTTP status codes. All requests must be made over HTTPS.\n\nContact Support:\n Name: ShortKit",
+      "type": "text/plain"
+    }
+  }
+}

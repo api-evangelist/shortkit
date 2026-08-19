@@ -1,0 +1,212 @@
+{
+  "item": [
+    {
+      "id": "2037b620-de5c-4cdc-ab91-6e4ee92e9999",
+      "name": "Ad Configuration",
+      "description": {
+        "content": "How ad slots are interleaved into the feed.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1e714ba6-e1e1-44f7-a98d-9211f14f0ff2",
+          "name": "Get Ad Config",
+          "request": {
+            "name": "Get Ad Config",
+            "description": {},
+            "url": {
+              "path": [
+                "ad-config"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "94d4c3ca-34a0-4b2d-9105-d1ebf08b5353",
+              "name": "The ad configuration.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad-config"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"enabled\": false,\n    \"frequency\": 5,\n    \"firstAdOffset\": 3,\n    \"maxPerPage\": 3,\n    \"adTagUrl\": \"string\",\n    \"adUnitId\": \"string\",\n    \"skipPolicy\": \"skippable_after\",\n    \"skipDelaySeconds\": 5,\n    \"defaultTargeting\": {\n      \"key_0\": 271,\n      \"key_1\": true\n    },\n    \"nativeEnabled\": false,\n    \"nativeFormatId\": \"string\",\n    \"nativeAdUnitId\": \"string\",\n    \"nativeVideoUrlKey\": \"video_url\",\n    \"nativeHeadlineKey\": \"headline\",\n    \"nativeCtaKey\": \"cta_text\",\n    \"nativeSponsorKey\": \"sponsor_name\",\n    \"nativeSponsorLogoKey\": \"sponsor_logo\"\n  },\n  \"meta\": {\n    \"request_id\": \"req_abc123def456\",\n    \"nextCursor\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1bb412a7-7262-4c3d-876d-018250cbbb89",
+          "name": "Update Ad Config",
+          "request": {
+            "name": "Update Ad Config",
+            "description": {},
+            "url": {
+              "path": [
+                "ad-config"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"enabled\": false,\n  \"frequency\": 5,\n  \"firstAdOffset\": 3,\n  \"maxPerPage\": 3,\n  \"adTagUrl\": \"<string>\",\n  \"adUnitId\": \"<string>\",\n  \"skipPolicy\": \"skippable_after\",\n  \"skipDelaySeconds\": 5,\n  \"defaultTargeting\": {\n    \"key_0\": false,\n    \"key_1\": \"string\"\n  },\n  \"nativeEnabled\": false,\n  \"nativeFormatId\": \"<string>\",\n  \"nativeAdUnitId\": \"<string>\",\n  \"nativeVideoUrlKey\": \"video_url\",\n  \"nativeHeadlineKey\": \"headline\",\n  \"nativeCtaKey\": \"cta_text\",\n  \"nativeSponsorKey\": \"sponsor_name\",\n  \"nativeSponsorLogoKey\": \"sponsor_logo\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c14dc407-c776-432b-a2f5-520b97454b71",
+              "name": "The ad configuration.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad-config"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"enabled\": false,\n  \"frequency\": 5,\n  \"firstAdOffset\": 3,\n  \"maxPerPage\": 3,\n  \"adTagUrl\": \"<string>\",\n  \"adUnitId\": \"<string>\",\n  \"skipPolicy\": \"skippable_after\",\n  \"skipDelaySeconds\": 5,\n  \"defaultTargeting\": {\n    \"key_0\": 5642.482193777873,\n    \"key_1\": false\n  },\n  \"nativeEnabled\": false,\n  \"nativeFormatId\": \"<string>\",\n  \"nativeAdUnitId\": \"<string>\",\n  \"nativeVideoUrlKey\": \"video_url\",\n  \"nativeHeadlineKey\": \"headline\",\n  \"nativeCtaKey\": \"cta_text\",\n  \"nativeSponsorKey\": \"sponsor_name\",\n  \"nativeSponsorLogoKey\": \"sponsor_logo\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"enabled\": false,\n    \"frequency\": 5,\n    \"firstAdOffset\": 3,\n    \"maxPerPage\": 3,\n    \"adTagUrl\": \"string\",\n    \"adUnitId\": \"string\",\n    \"skipPolicy\": \"skippable_after\",\n    \"skipDelaySeconds\": 5,\n    \"defaultTargeting\": {\n      \"key_0\": 271,\n      \"key_1\": true\n    },\n    \"nativeEnabled\": false,\n    \"nativeFormatId\": \"string\",\n    \"nativeAdUnitId\": \"string\",\n    \"nativeVideoUrlKey\": \"video_url\",\n    \"nativeHeadlineKey\": \"headline\",\n    \"nativeCtaKey\": \"cta_text\",\n    \"nativeSponsorKey\": \"sponsor_name\",\n    \"nativeSponsorLogoKey\": \"sponsor_logo\"\n  },\n  \"meta\": {\n    \"request_id\": \"req_abc123def456\",\n    \"nextCursor\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.shortkit.dev/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "1abfb68c-b4f0-46e3-99a8-4dc5000c3810",
+    "name": "ShortKit Ad Configuration API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The ShortKit API lets you manage content, uploads, live streams, surveys, analytics, and ad configuration for your short-form vertical video feeds. It is organized around REST, uses standard HTTP methods, returns JSON wrapped in a standard envelope, and uses conventional HTTP status codes. All requests must be made over HTTPS.\n\nContact Support:\n Name: ShortKit",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,16 +1,14 @@
 generated: '2026-07-21'
 method: derived
-source: >-
-  Derived from openapi/shortkit-openapi.yaml operations. No official hosted/remote ShortKit MCP
+source: Derived from openapi/shortkit-openapi.yaml operations. No official hosted/remote ShortKit MCP
   server was found (searched GitHub org shortkit, docs, and the MCP registry).
 api: ShortKit API
 status: candidate
 server:
   official: false
   hosted_url: none
-  note: >-
-    Candidate tool surface generated from the documented REST operations. ShortKit ships no
-    first-party MCP server today; a secret key (sk_) would back a server-side deployment.
+  note: Candidate tool surface generated from the documented REST operations. ShortKit ships no first-party
+    MCP server today; a secret key (sk_) would back a server-side deployment.
 auth:
   scheme: bearer (secret key sk_{env}_) for management tools; publishable key (pk_) for read/ingest.
 tools:
@@ -114,3 +112,9 @@ tools:
   operationId: updateAdConfig
   method: PUT
   path: /ad-config
+deployment:
+  mode: none
+  verified: derived
+  tools: 25
+  checked: '2026-08-12'
+  source: catalog MCP census
