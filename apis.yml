@@ -137,6 +137,9 @@ apis:
   - type: Authentication
     url: authentication/shortkit-authentication.yml
 common:
+- type: CapabilityMap
+  url: capabilities/shortkit-capability-edges.yml
+  name: ShortKit Business Capability Map
 - type: Overlay
   url: overlays/shortkit-openapi-overlay.yaml
 - type: DomainSecurity
