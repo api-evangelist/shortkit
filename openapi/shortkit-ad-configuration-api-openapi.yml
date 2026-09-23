@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: ShortKit Ad Configuration API
   version: v1
@@ -41,6 +41,16 @@ paths:
           $ref: '#/components/responses/AdConfigEnvelope'
 components:
   schemas:
+    Meta:
+      type: object
+      description: Envelope metadata. Always includes request_id; nextCursor present when more results exist.
+      properties:
+        request_id:
+          type: string
+          example: req_abc123def456
+        nextCursor:
+          type: string
+          nullable: true
     AdConfig:
       type: object
       properties:
@@ -95,16 +105,6 @@ components:
         nativeSponsorLogoKey:
           type: string
           default: sponsor_logo
-    Meta:
-      type: object
-      description: Envelope metadata. Always includes request_id; nextCursor present when more results exist.
-      properties:
-        request_id:
-          type: string
-          example: req_abc123def456
-        nextCursor:
-          type: string
-          nullable: true
   responses:
     AdConfigEnvelope:
       description: The ad configuration.

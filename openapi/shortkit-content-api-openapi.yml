@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: ShortKit Ad Configuration Content API
+  title: ShortKit Content API
   version: v1
   description: The ShortKit API lets you manage content, uploads, live streams, surveys, analytics, and ad configuration for your short-form vertical video feeds. It is organized around REST, uses standard HTTP methods, returns JSON wrapped in a standard envelope, and uses conventional HTTP status codes. All requests must be made over HTTPS.
   contact:
@@ -214,38 +214,101 @@ paths:
         '404':
           $ref: '#/components/responses/Error'
 components:
-  responses:
-    ContentEnvelope:
-      description: A single content item.
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              data:
-                $ref: '#/components/schemas/Content'
-              meta:
-                $ref: '#/components/schemas/Meta'
-    Error:
-      description: Error response (standard envelope with errors[]).
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorEnvelope'
-    ContentList:
-      description: A page of content items.
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              data:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Content'
-              meta:
-                $ref: '#/components/schemas/Meta'
   schemas:
+    UploadRequest:
+      type: object
+      required:
+      - contentType
+      - title
+      properties:
+        contentType:
+          type: string
+          enum:
+          - video
+          - carousel
+          - video_carousel
+        title:
+          type: string
+          maxLength: 200
+        description:
+          type: string
+          maxLength: 2000
+        tags:
+          type: array
+          items:
+            type: string
+        section:
+          type: string
+          maxLength: 200
+        author:
+          type: string
+          maxLength: 200
+        customMetadata:
+          type: object
+          additionalProperties: true
+        protected:
+          type: boolean
+        origin:
+          type: string
+          enum:
+          - ios_upload
+          - other
+          default: other
+        publishAt:
+          type: string
+          format: date-time
+        expiresAt:
+          type: string
+          format: date-time
+        autoScrollInterval:
+          type: number
+        callbackUrl:
+          type: string
+          format: uri
+          description: Webhook URL POSTed at each processing stage.
+        images:
+          type: array
+          items:
+            type: object
+            properties:
+              position:
+                type: integer
+              altText:
+                type: string
+    Meta:
+      type: object
+      description: Envelope metadata. Always includes request_id; nextCursor present when more results exist.
+      properties:
+        request_id:
+          type: string
+          example: req_abc123def456
+        nextCursor:
+          type: string
+          nullable: true
+    ErrorEnvelope:
+      type: object
+      properties:
+        data:
+          type: 'null'
+        meta:
+          $ref: '#/components/schemas/Meta'
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+                enum:
+                - invalid_request
+                - invalid_api_key
+                - forbidden
+                - not_found
+                - conflict
+                - rate_limited
+                - internal_error
+              message:
+                type: string
     Content:
       type: object
       properties:
@@ -329,100 +392,37 @@ components:
         updatedAt:
           type: string
           format: date-time
-    Meta:
-      type: object
-      description: Envelope metadata. Always includes request_id; nextCursor present when more results exist.
-      properties:
-        request_id:
-          type: string
-          example: req_abc123def456
-        nextCursor:
-          type: string
-          nullable: true
-    ErrorEnvelope:
-      type: object
-      properties:
-        data:
-          type: 'null'
-        meta:
-          $ref: '#/components/schemas/Meta'
-        errors:
-          type: array
-          items:
+  responses:
+    Error:
+      description: Error response (standard envelope with errors[]).
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorEnvelope'
+    ContentList:
+      description: A page of content items.
+      content:
+        application/json:
+          schema:
             type: object
             properties:
-              code:
-                type: string
-                enum:
-                - invalid_request
-                - invalid_api_key
-                - forbidden
-                - not_found
-                - conflict
-                - rate_limited
-                - internal_error
-              message:
-                type: string
-    UploadRequest:
-      type: object
-      required:
-      - contentType
-      - title
-      properties:
-        contentType:
-          type: string
-          enum:
-          - video
-          - carousel
-          - video_carousel
-        title:
-          type: string
-          maxLength: 200
-        description:
-          type: string
-          maxLength: 2000
-        tags:
-          type: array
-          items:
-            type: string
-        section:
-          type: string
-          maxLength: 200
-        author:
-          type: string
-          maxLength: 200
-        customMetadata:
-          type: object
-          additionalProperties: true
-        protected:
-          type: boolean
-        origin:
-          type: string
-          enum:
-          - ios_upload
-          - other
-          default: other
-        publishAt:
-          type: string
-          format: date-time
-        expiresAt:
-          type: string
-          format: date-time
-        autoScrollInterval:
-          type: number
-        callbackUrl:
-          type: string
-          format: uri
-          description: Webhook URL POSTed at each processing stage.
-        images:
-          type: array
-          items:
+              data:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Content'
+              meta:
+                $ref: '#/components/schemas/Meta'
+    ContentEnvelope:
+      description: A single content item.
+      content:
+        application/json:
+          schema:
             type: object
             properties:
-              position:
-                type: integer
-              altText:
-                type: string
+              data:
+                $ref: '#/components/schemas/Content'
+              meta:
+                $ref: '#/components/schemas/Meta'
   securitySchemes:
     PublishableKey:
       type: apiKey

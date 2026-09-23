@@ -1,11 +1,7 @@
 {
   "provider": "shortkit",
   "sources": [
-    "shortkit-ad-configuration-api-openapi.yml",
-    "shortkit-analytics-api-openapi.yml",
-    "shortkit-content-api-openapi.yml",
-    "shortkit-live-streams-api-openapi.yml",
-    "shortkit-surveys-api-openapi.yml"
+    "_original/shortkit-openapi.yaml"
   ],
   "outputs": [
     "shortkit-ad-configuration-api-openapi.yml",
@@ -17,6 +13,16 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "shortkit-openapi.yaml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "shortkit-ad-configuration-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "shortkit-analytics-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "shortkit-content-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "shortkit-live-streams-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "shortkit-surveys-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

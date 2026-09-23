@@ -1,0 +1,26 @@
+# Front Door AI Index — shortkit — 2026-09-17
+# AI vocabulary counted on the provider's root page. Generated; do not edit.
+# `score` is null unless ownership is `own` — see front_door_ai.py.
+front_door_ai:
+  slug: shortkit
+  lexicon_version: '1.0'
+  probed_at: '2026-09-17'
+  host: www.shortkit.dev
+  final_host: www.shortkit.dev
+  ownership: own
+  owner: shortkit
+  shares_host_with: null
+  inherited_from: null
+  verdict: scored
+  score: 2
+  host_score: 2
+  density: 5.08
+  words: 394
+  tiers:
+    agentic: 0
+    core: 2
+    model: 0
+  ambiguous: 0
+  top_terms:
+    AI: 1
+    ML: 1
