@@ -148,6 +148,40 @@ paths:
           $ref: '#/components/responses/Error'
 components:
   schemas:
+    Meta:
+      type: object
+      description: Envelope metadata. Always includes request_id; nextCursor present when more results exist.
+      properties:
+        request_id:
+          type: string
+          example: req_abc123def456
+        nextCursor:
+          type: string
+          nullable: true
+    ErrorEnvelope:
+      type: object
+      properties:
+        data:
+          type: 'null'
+        meta:
+          $ref: '#/components/schemas/Meta'
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+                enum:
+                - invalid_request
+                - invalid_api_key
+                - forbidden
+                - not_found
+                - conflict
+                - rate_limited
+                - internal_error
+              message:
+                type: string
     Survey:
       type: object
       properties:
@@ -211,40 +245,6 @@ components:
         updatedAt:
           type: string
           format: date-time
-    Meta:
-      type: object
-      description: Envelope metadata. Always includes request_id; nextCursor present when more results exist.
-      properties:
-        request_id:
-          type: string
-          example: req_abc123def456
-        nextCursor:
-          type: string
-          nullable: true
-    ErrorEnvelope:
-      type: object
-      properties:
-        data:
-          type: 'null'
-        meta:
-          $ref: '#/components/schemas/Meta'
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              code:
-                type: string
-                enum:
-                - invalid_request
-                - invalid_api_key
-                - forbidden
-                - not_found
-                - conflict
-                - rate_limited
-                - internal_error
-              message:
-                type: string
   responses:
     Error:
       description: Error response (standard envelope with errors[]).

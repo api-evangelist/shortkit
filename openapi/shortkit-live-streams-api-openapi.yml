@@ -173,6 +173,16 @@ paths:
           description: Clips created.
 components:
   schemas:
+    Meta:
+      type: object
+      description: Envelope metadata. Always includes request_id; nextCursor present when more results exist.
+      properties:
+        request_id:
+          type: string
+          example: req_abc123def456
+        nextCursor:
+          type: string
+          nullable: true
     ErrorEnvelope:
       type: object
       properties:
@@ -197,16 +207,6 @@ components:
                 - internal_error
               message:
                 type: string
-    Meta:
-      type: object
-      description: Envelope metadata. Always includes request_id; nextCursor present when more results exist.
-      properties:
-        request_id:
-          type: string
-          example: req_abc123def456
-        nextCursor:
-          type: string
-          nullable: true
     LiveStream:
       type: object
       properties:
