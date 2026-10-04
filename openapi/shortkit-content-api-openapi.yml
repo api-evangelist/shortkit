@@ -215,6 +215,17 @@ paths:
           $ref: '#/components/responses/Error'
 components:
   responses:
+    ContentEnvelope:
+      description: A single content item.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/components/schemas/Content'
+              meta:
+                $ref: '#/components/schemas/Meta'
     ContentList:
       description: A page of content items.
       content:
@@ -228,17 +239,6 @@ components:
                   $ref: '#/components/schemas/Content'
               meta:
                 $ref: '#/components/schemas/Meta'
-    ContentEnvelope:
-      description: A single content item.
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              data:
-                $ref: '#/components/schemas/Content'
-              meta:
-                $ref: '#/components/schemas/Meta'
     Error:
       description: Error response (standard envelope with errors[]).
       content:
@@ -246,29 +246,65 @@ components:
           schema:
             $ref: '#/components/schemas/ErrorEnvelope'
   schemas:
-    ErrorEnvelope:
+    UploadRequest:
       type: object
+      required:
+      - contentType
+      - title
       properties:
-        data:
-          type: 'null'
-        meta:
-          $ref: '#/components/schemas/Meta'
-        errors:
+        contentType:
+          type: string
+          enum:
+          - video
+          - carousel
+          - video_carousel
+        title:
+          type: string
+          maxLength: 200
+        description:
+          type: string
+          maxLength: 2000
+        tags:
+          type: array
+          items:
+            type: string
+        section:
+          type: string
+          maxLength: 200
+        author:
+          type: string
+          maxLength: 200
+        customMetadata:
+          type: object
+          additionalProperties: true
+        protected:
+          type: boolean
+        origin:
+          type: string
+          enum:
+          - ios_upload
+          - other
+          default: other
+        publishAt:
+          type: string
+          format: date-time
+        expiresAt:
+          type: string
+          format: date-time
+        autoScrollInterval:
+          type: number
+        callbackUrl:
+          type: string
+          format: uri
+          description: Webhook URL POSTed at each processing stage.
+        images:
           type: array
           items:
             type: object
             properties:
-              code:
-                type: string
-                enum:
-                - invalid_request
-                - invalid_api_key
-                - forbidden
-                - not_found
-                - conflict
-                - rate_limited
-                - internal_error
-              message:
+              position:
+                type: integer
+              altText:
                 type: string
     Meta:
       type: object
@@ -363,65 +399,29 @@ components:
         updatedAt:
           type: string
           format: date-time
-    UploadRequest:
+    ErrorEnvelope:
       type: object
-      required:
-      - contentType
-      - title
       properties:
-        contentType:
-          type: string
-          enum:
-          - video
-          - carousel
-          - video_carousel
-        title:
-          type: string
-          maxLength: 200
-        description:
-          type: string
-          maxLength: 2000
-        tags:
-          type: array
-          items:
-            type: string
-        section:
-          type: string
-          maxLength: 200
-        author:
-          type: string
-          maxLength: 200
-        customMetadata:
-          type: object
-          additionalProperties: true
-        protected:
-          type: boolean
-        origin:
-          type: string
-          enum:
-          - ios_upload
-          - other
-          default: other
-        publishAt:
-          type: string
-          format: date-time
-        expiresAt:
-          type: string
-          format: date-time
-        autoScrollInterval:
-          type: number
-        callbackUrl:
-          type: string
-          format: uri
-          description: Webhook URL POSTed at each processing stage.
-        images:
+        data:
+          type: 'null'
+        meta:
+          $ref: '#/components/schemas/Meta'
+        errors:
           type: array
           items:
             type: object
             properties:
-              position:
-                type: integer
-              altText:
+              code:
+                type: string
+                enum:
+                - invalid_request
+                - invalid_api_key
+                - forbidden
+                - not_found
+                - conflict
+                - rate_limited
+                - internal_error
+              message:
                 type: string
   securitySchemes:
     PublishableKey:

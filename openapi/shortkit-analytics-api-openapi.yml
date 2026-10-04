@@ -109,6 +109,16 @@ paths:
           description: Time series for the metric.
 components:
   schemas:
+    Meta:
+      type: object
+      description: Envelope metadata. Always includes request_id; nextCursor present when more results exist.
+      properties:
+        request_id:
+          type: string
+          example: req_abc123def456
+        nextCursor:
+          type: string
+          nullable: true
     Event:
       type: object
       properties:
@@ -139,16 +149,6 @@ components:
         event_data:
           type: object
           additionalProperties: true
-    Meta:
-      type: object
-      description: Envelope metadata. Always includes request_id; nextCursor present when more results exist.
-      properties:
-        request_id:
-          type: string
-          example: req_abc123def456
-        nextCursor:
-          type: string
-          nullable: true
   securitySchemes:
     PublishableKey:
       type: apiKey

@@ -172,24 +172,31 @@ paths:
         '200':
           description: Clips created.
 components:
-  responses:
-    Error:
-      description: Error response (standard envelope with errors[]).
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorEnvelope'
   schemas:
-    Meta:
+    ErrorEnvelope:
       type: object
-      description: Envelope metadata. Always includes request_id; nextCursor present when more results exist.
       properties:
-        request_id:
-          type: string
-          example: req_abc123def456
-        nextCursor:
-          type: string
-          nullable: true
+        data:
+          type: 'null'
+        meta:
+          $ref: '#/components/schemas/Meta'
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+                enum:
+                - invalid_request
+                - invalid_api_key
+                - forbidden
+                - not_found
+                - conflict
+                - rate_limited
+                - internal_error
+              message:
+                type: string
     LiveStream:
       type: object
       properties:
@@ -239,30 +246,23 @@ components:
         createdAt:
           type: string
           format: date-time
-    ErrorEnvelope:
+    Meta:
       type: object
+      description: Envelope metadata. Always includes request_id; nextCursor present when more results exist.
       properties:
-        data:
-          type: 'null'
-        meta:
-          $ref: '#/components/schemas/Meta'
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              code:
-                type: string
-                enum:
-                - invalid_request
-                - invalid_api_key
-                - forbidden
-                - not_found
-                - conflict
-                - rate_limited
-                - internal_error
-              message:
-                type: string
+        request_id:
+          type: string
+          example: req_abc123def456
+        nextCursor:
+          type: string
+          nullable: true
+  responses:
+    Error:
+      description: Error response (standard envelope with errors[]).
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorEnvelope'
   securitySchemes:
     PublishableKey:
       type: apiKey

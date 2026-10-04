@@ -53,16 +53,6 @@ components:
               meta:
                 $ref: '#/components/schemas/Meta'
   schemas:
-    Meta:
-      type: object
-      description: Envelope metadata. Always includes request_id; nextCursor present when more results exist.
-      properties:
-        request_id:
-          type: string
-          example: req_abc123def456
-        nextCursor:
-          type: string
-          nullable: true
     AdConfig:
       type: object
       properties:
@@ -117,6 +107,16 @@ components:
         nativeSponsorLogoKey:
           type: string
           default: sponsor_logo
+    Meta:
+      type: object
+      description: Envelope metadata. Always includes request_id; nextCursor present when more results exist.
+      properties:
+        request_id:
+          type: string
+          example: req_abc123def456
+        nextCursor:
+          type: string
+          nullable: true
   securitySchemes:
     PublishableKey:
       type: apiKey

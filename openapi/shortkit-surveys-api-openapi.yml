@@ -147,7 +147,35 @@ paths:
         '409':
           $ref: '#/components/responses/Error'
 components:
+  responses:
+    SurveyEnvelope:
+      description: A single survey.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/components/schemas/Survey'
+              meta:
+                $ref: '#/components/schemas/Meta'
+    Error:
+      description: Error response (standard envelope with errors[]).
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorEnvelope'
   schemas:
+    Meta:
+      type: object
+      description: Envelope metadata. Always includes request_id; nextCursor present when more results exist.
+      properties:
+        request_id:
+          type: string
+          example: req_abc123def456
+        nextCursor:
+          type: string
+          nullable: true
     ErrorEnvelope:
       type: object
       properties:
@@ -172,16 +200,6 @@ components:
                 - internal_error
               message:
                 type: string
-    Meta:
-      type: object
-      description: Envelope metadata. Always includes request_id; nextCursor present when more results exist.
-      properties:
-        request_id:
-          type: string
-          example: req_abc123def456
-        nextCursor:
-          type: string
-          nullable: true
     Survey:
       type: object
       properties:
@@ -245,24 +263,6 @@ components:
         updatedAt:
           type: string
           format: date-time
-  responses:
-    Error:
-      description: Error response (standard envelope with errors[]).
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorEnvelope'
-    SurveyEnvelope:
-      description: A single survey.
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              data:
-                $ref: '#/components/schemas/Survey'
-              meta:
-                $ref: '#/components/schemas/Meta'
   securitySchemes:
     PublishableKey:
       type: apiKey
