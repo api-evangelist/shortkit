@@ -40,18 +40,6 @@ paths:
         '200':
           $ref: '#/components/responses/AdConfigEnvelope'
 components:
-  responses:
-    AdConfigEnvelope:
-      description: The ad configuration.
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              data:
-                $ref: '#/components/schemas/AdConfig'
-              meta:
-                $ref: '#/components/schemas/Meta'
   schemas:
     AdConfig:
       type: object
@@ -117,6 +105,18 @@ components:
         nextCursor:
           type: string
           nullable: true
+  responses:
+    AdConfigEnvelope:
+      description: The ad configuration.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/components/schemas/AdConfig'
+              meta:
+                $ref: '#/components/schemas/Meta'
   securitySchemes:
     PublishableKey:
       type: apiKey

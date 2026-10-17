@@ -172,6 +172,13 @@ paths:
         '200':
           description: Clips created.
 components:
+  responses:
+    Error:
+      description: Error response (standard envelope with errors[]).
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorEnvelope'
   schemas:
     ErrorEnvelope:
       type: object
@@ -256,13 +263,6 @@ components:
         nextCursor:
           type: string
           nullable: true
-  responses:
-    Error:
-      description: Error response (standard envelope with errors[]).
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorEnvelope'
   securitySchemes:
     PublishableKey:
       type: apiKey
